@@ -3,66 +3,52 @@ from appium.webdriver.common.appiumby import AppiumBy
 import pandas as pd
 import time
 from selenium.webdriver.support import expected_conditions as EC
+from appium.webdriver.common.touch_action import TouchAction
 
-START_RANGE = 500
-END_RANGE = 700
-DELAY = 3
+# For W3C actions
+from selenium.webdriver.common.action_chains import ActionChains# time.sleep(3)
+# el3 = driver.find_element(by=AppiumBy.XPATH, value='//com.lynx.tasm.behavior.ui.text.FlattenUIText[@content-desc="Womenswear"]')
+# el3.click()
 
-df = pd.read_csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vR80_iHyMEDo4pgue9N7toAAtjFIaaA9bYAgg_QtRprTxl-a2aehbHbDE387irsoRV6TKljiI_Yv26v/pub?gid=0&single=true&output=csv")
-df_link = df["productUrl"].iloc[START_RANGE:END_RANGE].reset_index(drop=True)
-df_id = df["itemid"].iloc[START_RANGE:END_RANGE].reset_index(drop=True)
-df_cat = df["category"].iloc[START_RANGE:END_RANGE].reset_index(drop=True)
+from selenium.webdriver.common.actions import interaction
+from selenium.webdriver.common.actions.action_builder import ActionBuilder
+from selenium.webdriver.common.actions.pointer_input import PointerInput
 
 desired_caps = {
+    "appium:appPackage": "com.ss.android.ugc.trill",
+    "appium:appActivity": "com.ss.android.ugc.aweme.splash.SplashActivity",
     "platformName": "Android",
     "deviceName": "device",
     #udid": "emulator-5554",
-    "udid": "192.168.8.121:37757",
+    #"udid": "192.168.8.121:37757",
+    "udid": "RR8T704RCKK",
     "noReset": True
 }
 
-sale_xpath = ["/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup[1]/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.widget.FrameLayout[4]/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.TextView[3]",
-              "/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup[1]/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.widget.FrameLayout[3]/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.TextView[3]",
-              "/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup[1]/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.widget.FrameLayout[5]/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.TextView[3]",
-              "/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup[1]/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.widget.FrameLayout[6]/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.TextView[3]"]
-
-name_xpath =["/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup[1]/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.widget.FrameLayout[2]/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.TextView",
-            "/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup[1]/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.widget.FrameLayout[3]/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.TextView",
-            "/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup[1]/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.widget.FrameLayout[4]/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.TextView"]
-
-def sale_scrap():
-    for a in sale_xpath:
-        try:
-            sale = driver.find_element(by=AppiumBy.XPATH, value=a)
-            return sale.text
-        except:
-            pass
-
-def name_scrap():
-    for b in name_xpath:
-        try:
-            name = driver.find_element(by=AppiumBy.XPATH, value=b)
-            return name.text
-        except:
-            pass
-
-name_df = []
-sale_df = []
 driver = webdriver.Remote("http://127.0.0.1:4723/wd/hub", desired_caps)
-for _, i in df_link.items():
-    print("opening lazada")
-    driver.execute_script("mobile: deepLink", {'url': 'https://{}'.format(i), 'package': 'com.lazada.android'})
-    time.sleep(DELAY)
-    #scape name  
-    name_df.append(name_scrap())
-    print (name_scrap())
-    #scrape sale
-    sale_df.append(sale_scrap())
-    print (sale_scrap())
 
-df_name = pd.DataFrame(name_df, columns=["product_name"])
-df_sale = pd.DataFrame(sale_df, columns=["qty_sold"])
-df = [df_link, df_name, df_sale, df_id, df_cat]
-df_final = pd.concat(df, axis=1)
-df_final.to_csv("50product.csv")
-print(df_final)
+time.sleep(4)
+el1 = driver.find_element(by=AppiumBy.XPATH, value="/hierarchy/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/X.VSu/android.widget.TabHost/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout[2]/android.widget.ImageView")
+el1.click()
+
+time.sleep(4)
+
+#bypass layer
+actions = TouchAction(driver)
+actions.tap(None,971,1901,1)
+actions.perform()
+time.sleep(2)
+driver.back()
+
+# try:
+#     actions = TouchAction(driver)
+#     actions.tap(None,971,1901,1)
+#     actions.perform()
+#     time.sleep(2)
+#     driver.back()
+# except:
+#      pass
+time.sleep(1)
+el3 = driver.find_element(by=AppiumBy.XPATH, value='//com.lynx.tasm.behavior.ui.text.FlattenUIText[@content-desc="Womenswear"]')
+el3.click()
+
