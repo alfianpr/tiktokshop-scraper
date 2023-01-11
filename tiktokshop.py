@@ -6,7 +6,8 @@ from selenium.webdriver.support import expected_conditions as EC
 from appium.webdriver.common.touch_action import TouchAction
 import requests
 
-LOOP = 2
+LOOP = 100
+CATEGORY = "Muslim fashion"
 
 desired_caps = {
     "appium:appPackage": "com.ss.android.ugc.trill",
@@ -21,11 +22,11 @@ desired_caps = {
 
 driver = webdriver.Remote("http://127.0.0.1:4723/wd/hub", desired_caps)
 
-time.sleep(4)
+time.sleep(2)
 el1 = driver.find_element(by=AppiumBy.XPATH, value="/hierarchy/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/X.Uf6/android.widget.TabHost/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout[2]/android.widget.ImageView")
 el1.click()
 
-time.sleep(4)
+time.sleep(2)
 
 #bypass layer
 actions = TouchAction(driver)
@@ -33,17 +34,18 @@ actions.tap(None,164,514,1)
 actions.perform()
 time.sleep(3)
 driver.back()
+time.sleep(2)
+
+#Uncomment if need horizontal scrolling to find the category
+driver.swipe(953, 1512, 369, 1512, 400)
 
 #scroll up
-
 time.sleep(1)
-el3 = driver.find_element(by=AppiumBy.XPATH, value='//com.lynx.tasm.behavior.ui.text.FlattenUIText[@content-desc="Womenswear"]')
+el3 = driver.find_element(by=AppiumBy.XPATH, value=f'//com.lynx.tasm.behavior.ui.text.FlattenUIText[@content-desc="{CATEGORY}"]')
 el3.click()
-
 deviceSize = driver.get_window_size()
 screenWidth = deviceSize['width']
 screenHeight = deviceSize['height']
-
 startx = screenWidth/2
 endx = screenWidth/2
 starty = screenHeight*8/9
@@ -55,14 +57,14 @@ def get_link():
     time.sleep(2)
     el11 = driver.find_element(by=AppiumBy.XPATH, value="/hierarchy/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout[1]/android.widget.FrameLayout/androidx.recyclerview.widget.RecyclerView/android.widget.FrameLayout[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup[2]/android.widget.ImageView")
     el11.click()
-    time.sleep(1)
+    time.sleep(2)
     el21 = driver.find_element(by=AppiumBy.XPATH, value="/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.FrameLayout/androidx.recyclerview.widget.RecyclerView/android.widget.LinearLayout[1]")
     el21.click()
     text = driver.get_clipboard_text()
     return text
 
-df = []
 def open_product():
+    df = []
     xy = {
         279 : 600,
         864 : 600,
@@ -72,31 +74,41 @@ def open_product():
         823 : 2201
     }
     for i, j in xy.items():
-        actions.tap(None,i,j,1)
-        actions.perform()
-        link = get_link()
-        print("found link : ", link)
-        df.append(link)
-        driver.back()
+        try:
+            actions.tap(None,i,j,1)
+            actions.perform()
+            link = get_link()
+            print("found link : ", link)
+            df.append(link)
+            driver.back()
+        except:
+            continue
+    df = pd.DataFrame(df)
+    df.to_csv('tmp.csv', mode='a', index=False, header=False)
 
-try:
-    i = 1
-    while i <= LOOP:
-        actions.long_press(None,startx,starty).move_to(None,endx,endy).release().perform()
+i = 1
+while i <= LOOP:
+    print (f"Scrape the loop at {i}")
+    actions.long_press(None,startx,starty).move_to(None,endx,endy).release().perform()
+    try:
         open_product()
-        i = i+1
-except:
-    pass
+    except:
+        continue
+    i = i+1
 
-result = []
-session = requests.Session()  # so connections are recycled
+# result = []
+# session = requests.Session()  # so connections are recycled
 
-url = []
-for i in df:
-    resp = session.head(i, allow_redirects=True)
-    url.append(resp.url)
+# print ("Unshorted the link ...")
+# url = []
+# for i in df:
+#     resp = session.head(i, allow_redirects=True)
+#     long = resp.url
+#     long_final = long.split("?")
+#     url.append(long_final[0])
 
-[result.append(x) for x in url if x not in result]
-df_result = pd.DataFrame(result)
-df_result.to_csv("test.csv")
-print(df_result)
+# print ("remove duplicate ...")
+# [result.append(x) for x in url if x not in result]
+# df_result = pd.DataFrame(result)
+# df_result.to_csv("test.csv")
+# print(df_result)
