@@ -7,7 +7,9 @@ from appium.webdriver.common.touch_action import TouchAction
 import requests
 
 LOOP = 100
-CATEGORY = "Muslim fashion"
+CATEGORY = "Menswear"
+SWIPE = "yes" # yes or no
+SWIPE_LOOP = 0
 
 desired_caps = {
     "appium:appPackage": "com.ss.android.ugc.trill",
@@ -23,20 +25,28 @@ desired_caps = {
 driver = webdriver.Remote("http://127.0.0.1:4723/wd/hub", desired_caps)
 
 time.sleep(2)
-el1 = driver.find_element(by=AppiumBy.XPATH, value="/hierarchy/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/X.Uf6/android.widget.TabHost/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout[2]/android.widget.ImageView")
+el1 = driver.find_element(by=AppiumBy.ID, value="com.ss.android.ugc.trill:id/ayo")
 el1.click()
 
 time.sleep(2)
 
 #bypass layer
-actions = TouchAction(driver)
-actions.tap(None,164,514,1)
-actions.perform()
-time.sleep(3)
-driver.back()
-time.sleep(2)
+# actions = TouchAction(driver)
+# actions.tap(None,164,514,1)
+# actions.perform()
+# time.sleep(3)
+# driver.back()
+# time.sleep(2)
 
 #Uncomment if need horizontal scrolling to find the category
+# i = 0
+# if SWIPE == "yes":
+#     while i < SWIPE_LOOP:
+#         driver.swipe(953, 1512, 369, 1512, 400)
+#         i = i+1
+#         continue
+driver.swipe(953, 1512, 369, 1512, 400)
+driver.swipe(953, 1512, 369, 1512, 400)
 driver.swipe(953, 1512, 369, 1512, 400)
 
 #scroll up
@@ -84,7 +94,7 @@ def open_product():
         except:
             continue
     df = pd.DataFrame(df)
-    df.to_csv('tmp.csv', mode='a', index=False, header=False)
+    df.to_csv('manswear.csv', mode='a', index=False, header=False)
 
 i = 1
 while i <= LOOP:
