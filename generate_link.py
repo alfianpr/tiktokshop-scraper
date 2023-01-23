@@ -1,7 +1,7 @@
 import requests
 import pandas as pd
 
-df = pd.read_csv("manswear.csv")
+df = pd.read_csv("womenswear.csv")
 df = df["link"].values.tolist()
 
 result = []
@@ -19,5 +19,5 @@ for i in df:
 print ("remove duplicate ...")
 [result.append(x) for x in url if x not in result]
 df_result = pd.DataFrame(result)
-df_result.to_csv("mens_clean.csv")
+df_result.to_csv("women_clean.csv")
 print(df_result)

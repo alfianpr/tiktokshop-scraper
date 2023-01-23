@@ -6,10 +6,10 @@ from selenium.webdriver.support import expected_conditions as EC
 from appium.webdriver.common.touch_action import TouchAction
 import requests
 
-LOOP = 100
-CATEGORY = "Menswear"
+SCROLL_LOOP = 100
+CATEGORY = "Womenswear"
 SWIPE = "yes" # yes or no
-SWIPE_LOOP = 0
+SWIPE_LOOP = 1
 
 desired_caps = {
     "appium:appPackage": "com.ss.android.ugc.trill",
@@ -27,27 +27,15 @@ driver = webdriver.Remote("http://127.0.0.1:4723/wd/hub", desired_caps)
 time.sleep(2)
 el1 = driver.find_element(by=AppiumBy.ID, value="com.ss.android.ugc.trill:id/ayo")
 el1.click()
-
 time.sleep(2)
 
-#bypass layer
-# actions = TouchAction(driver)
-# actions.tap(None,164,514,1)
-# actions.perform()
-# time.sleep(3)
-# driver.back()
-# time.sleep(2)
-
-#Uncomment if need horizontal scrolling to find the category
-# i = 0
-# if SWIPE == "yes":
-#     while i < SWIPE_LOOP:
-#         driver.swipe(953, 1512, 369, 1512, 400)
-#         i = i+1
-#         continue
-driver.swipe(953, 1512, 369, 1512, 400)
-driver.swipe(953, 1512, 369, 1512, 400)
-driver.swipe(953, 1512, 369, 1512, 400)
+i = 0
+if SWIPE == "yes":
+    while i < SWIPE_LOOP:
+        driver.swipe(953, 1512, 369, 1512, 400)
+        i = i+1
+else:
+    pass
 
 #scroll up
 time.sleep(1)
@@ -94,31 +82,15 @@ def open_product():
         except:
             continue
     df = pd.DataFrame(df)
-    df.to_csv('manswear.csv', mode='a', index=False, header=False)
+    df.to_csv('womenswear.csv', mode='a', index=False, header=False)
 
 i = 1
-while i <= LOOP:
+while i <= SCROLL_LOOP:
     print (f"Scrape the loop at {i}")
     actions.long_press(None,startx,starty).move_to(None,endx,endy).release().perform()
     try:
+        time.sleep(1)
         open_product()
     except:
         continue
     i = i+1
-
-# result = []
-# session = requests.Session()  # so connections are recycled
-
-# print ("Unshorted the link ...")
-# url = []
-# for i in df:
-#     resp = session.head(i, allow_redirects=True)
-#     long = resp.url
-#     long_final = long.split("?")
-#     url.append(long_final[0])
-
-# print ("remove duplicate ...")
-# [result.append(x) for x in url if x not in result]
-# df_result = pd.DataFrame(result)
-# df_result.to_csv("test.csv")
-# print(df_result)
