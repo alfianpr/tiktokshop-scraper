@@ -6,8 +6,8 @@ from selenium.webdriver.support import expected_conditions as EC
 from appium.webdriver.common.touch_action import TouchAction
 import requests
 
-SCROLL_LOOP = 20
-CATEGORY = "Womenswear"
+SCROLL_LOOP = 100
+CATEGORY = "Beauty"
 SESSION = 5
 CONNECTION = "RR8T704RCKK"
 
@@ -62,24 +62,34 @@ def get_link():
     text = driver.get_clipboard_text()
     return text
 
-k = 0
-while k < SCROLL_LOOP:
-    el5 = []
-    unique = []
-    for i in range(8):
-        el5.append(driver.find_elements(by=AppiumBy.XPATH, value=f"(//com.lynx.tasm.behavior.ui.text.FlattenUIText[@content-desc='Rp'])[{i}]"))
-    print(el5)
-    [unique.append(x) for x in el5 if x not in unique]
-    time.sleep(2)
-    for i in [l[0] for l in unique if len(l) > 0]:
+def open_product():
+    df = []
+    xy = {279 : 600, 864 : 600, 268 : 1362, 786 : 1362, 264 : 2201, 823 : 2201}
+    for i, j in xy.items():
         try:
-            i.click()
-            print(get_link())
+            time.sleep(1)
+            actions.tap(None,i,j,1)
+            actions.perform()
+            link = get_link()
+            print("found link : ", link)
+            df.append(link)
             driver.back()
         except:
-            pass
-        #time.sleep(7)
-        time.sleep(2)
-    #actions.long_press(None,startx,starty).move_to(None,endx,endy).release().perform()
+            continue
+    df = pd.DataFrame(df)
+    df.to_csv(f'{CATEGORY}.csv', mode='a', index=False, header=False)
+
+k = 0
+while k <= SCROLL_LOOP:
+    print (f"Scrape the loop at {k}")
+    try:
+        time.sleep(1)
+        open_product()
+    except:
+        continue
     driver.swipe(startx, 2153, endx, 445)
+    try :
+        driver.find_element(by=AppiumBy.XPATH, value="/hierarchy/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.widget.ImageView").click()
+    except:
+        pass
     k = k + 1
