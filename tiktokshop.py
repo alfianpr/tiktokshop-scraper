@@ -6,12 +6,12 @@ from selenium.webdriver.support import expected_conditions as EC
 from appium.webdriver.common.touch_action import TouchAction
 import requests
 
-SCROLL_LOOP = 20
+SCROLL_LOOP = 10
 CATEGORY = "Womenswear"
 SWIPE = "yes" # yes or no
 SWIPE_LOOP = 1
 SESSION = 5
-CONNECTION = "RR8T704RCKK"
+CONNECTION = "192.168.1.31:32869"
 
 desired_caps = {
     "appium:appPackage": "com.ss.android.ugc.trill",
@@ -19,7 +19,10 @@ desired_caps = {
     "platformName": "Android",
     "deviceName": "device",
     "udid": CONNECTION,
-    "noReset": True
+    "noReset": True,
+    "unlockType": "pattern",
+    "unlockValue": "751236"
+
 }
 
 appium_connect = {
@@ -36,9 +39,13 @@ def ses():
     driver.implicitly_wait(4)
     #time.sleep(2)
     driver.find_element(by=AppiumBy.ID, value="com.ss.android.ugc.trill:id/ayo").click()
-
+    #driver.find_element(by=AppiumBy.ID, value="com.ss.android.ugc.trill:id/azn").click()
 
 ########## Open the category
+
+#def refresh():
+
+
 def to_cat():
     time.sleep(3)
     i = 0

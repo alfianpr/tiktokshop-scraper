@@ -1,11 +1,13 @@
 import requests
 import pandas as pd
 
-df = pd.read_csv("womenswear.csv")
+CATEGORY = "Beauty"
+
+df = pd.read_csv(f"{CATEGORY}.csv")
 df = df["link"].values.tolist()
 
 result = []
-session = requests.Session()  # so connections are recycled
+session = requests.Session()
 
 print ("Unshorted the link ...")
 url = []
@@ -19,5 +21,5 @@ for i in df:
 print ("remove duplicate ...")
 [result.append(x) for x in url if x not in result]
 df_result = pd.DataFrame(result)
-df_result.to_csv("women_clean.csv")
+df_result.to_csv(f"{CATEGORY}_clean.csv")
 print(df_result)
