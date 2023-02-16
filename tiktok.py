@@ -6,10 +6,10 @@ from selenium.webdriver.support import expected_conditions as EC
 from appium.webdriver.common.touch_action import TouchAction
 import requests
 
-SCROLL_LOOP = 2
-CATEGORY = "Beauty"
+SCROLL_LOOP = 1
+CATEGORY = "Food"
 SESSION = 100
-CONNECTION = "RR8T704RCKK"
+CONNECTION = "192.168.81.234:43422"
 
 desired_caps = {
     "appium:appPackage": "com.ss.android.ugc.trill",
@@ -26,8 +26,8 @@ driver = webdriver.Remote("http://127.0.0.1:4723/wd/hub", desired_caps)
 
 #time.sleep(3)
 driver.implicitly_wait(4)
-driver.find_element(by=AppiumBy.ID, value="com.ss.android.ugc.trill:id/azn").click()
-
+driver.find_element(by=AppiumBy.ID, value="com.ss.android.ugc.trill:id/azz").click()
+#driver.find_element(by=AppiumBy.ID, value="com.ss.android.ugc.trill:id/azn").click()
 time.sleep(3)
 
 ### Scroll
@@ -40,15 +40,22 @@ starty = screenHeight*8/11
 endy = screenHeight/8
 
 actions = TouchAction(driver)
-
-actions.long_press(None,startx,screenHeight*8/9).move_to(None,endx,endy).release().perform()
+driver.swipe(startx, 1855, endx, 445, 400)
+#actions.long_press(None,startx,screenHeight*8/9).move_to(None,endx,endy).release().perform()
 
 ### Looking for category
 isfind = driver.find_elements(by=AppiumBy.XPATH, value=f'//com.lynx.tasm.behavior.ui.text.FlattenUIText[@content-desc="{CATEGORY}"]')
 try:
+    time.sleep(2)
     while len([l[0] for l in isfind if len(l) > 0]) == 0:
-        driver.swipe(953, 300, 369, 300, 400)
+        driver.swipe(954, 230, 369, 230, 400)
+        # try:
+        #     time.sleep(2)
+        #     driver.find_element(by.AppiumBy.XPATH, value="/hierarchy/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.widget.ImageView").click()
+        # except:
+        #     break
         isfind.append(driver.find_elements(by=AppiumBy.XPATH, value=f'//com.lynx.tasm.behavior.ui.text.FlattenUIText[@content-desc="{CATEGORY}"]'))
+        
     else:
         time.sleep(2)
         [l[0] for l in isfind if len(l) > 0][0].click()
@@ -67,7 +74,9 @@ def get_link():
 
 def open_product():
     df = []
-    xy = {279 : 600, 864 : 600, 268 : 1362, 786 : 1362, 264 : 2201, 823 : 2201}
+    xy = {279 : 600, 864 : 600, 268 : 1362, 786 : 1362, 
+        #264 : 1855, 823 : 1855
+        }
     for i, j in xy.items():
         try:
             time.sleep(1)
@@ -76,6 +85,7 @@ def open_product():
             link = get_link()
             print("found link : ", link)
             df.append(link)
+            time.sleep(1)
             driver.back()
         except:
             continue
@@ -88,19 +98,23 @@ while A <= SESSION:
     while k <= SCROLL_LOOP:
         print (f"Scrape the loop at {k}")
         try:
-            time.sleep(1)
+            time.sleep(2)
             open_product()
         except:
-            continue
-        driver.swipe(startx, 2153, endx, 445)
-        try :
-            driver.find_element(by=AppiumBy.XPATH, value="/hierarchy/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.widget.ImageView").click()
-        except:
             pass
+        driver.swipe(startx, 1855, endx, 445, 400)
+
+        time.sleep(2)
+        close = driver.find_elements(by=AppiumBy.XPATH, value="/hierarchy/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.widget.ImageView")
+        if len(close) > 0:
+            close[0].click()
         k = k + 1
-    driver.find_element(by=AppiumBy.ID, value="com.ss.android.ugc.trill:id/byt").click()
+    try:
+        driver.find_element(by=AppiumBy.ID, value="com.ss.android.ugc.trill:id/bzp").click()
+    except:
+        pass
     time.sleep(3)
-    driver.swipe(500, 465, 500, 948)
-    time.sleep(3)
-    driver.swipe(startx, 2153, endx, 445)
+    driver.swipe(500, 465, 500, 948, 400)
+    # time.sleep(3)
+    driver.swipe(startx, 1855, endx, 400, 400)
     A = A + 1
