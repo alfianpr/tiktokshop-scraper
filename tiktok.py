@@ -9,7 +9,7 @@ import requests
 SCROLL_LOOP = 1
 CATEGORY = "Food"
 SESSION = 100
-CONNECTION = "192.168.81.234:43422"
+CONNECTION = "J9AXGF00S840NWB"
 
 desired_caps = {
     "appium:appPackage": "com.ss.android.ugc.trill",
@@ -44,7 +44,7 @@ driver.swipe(startx, 1855, endx, 445, 400)
 #actions.long_press(None,startx,screenHeight*8/9).move_to(None,endx,endy).release().perform()
 
 ### Looking for category
-isfind = driver.find_elements(by=AppiumBy.XPATH, value=f'//com.lynx.tasm.behavior.ui.text.FlattenUIText[@content-desc="{CATEGORY}"]')
+isfind = driver.find_elements(by=AppiumBy.XPATH, value=f'//com.lynx.tasm.behavior.ui.view.UIView[@content-desc="{CATEGORY}"]')
 try:
     time.sleep(2)
     while len([l[0] for l in isfind if len(l) > 0]) == 0:
@@ -54,7 +54,7 @@ try:
         #     driver.find_element(by.AppiumBy.XPATH, value="/hierarchy/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.widget.ImageView").click()
         # except:
         #     break
-        isfind.append(driver.find_elements(by=AppiumBy.XPATH, value=f'//com.lynx.tasm.behavior.ui.text.FlattenUIText[@content-desc="{CATEGORY}"]'))
+        isfind.append(driver.find_elements(by=AppiumBy.XPATH, value=f'//com.lynx.tasm.behavior.ui.view.UIView[@content-desc="{CATEGORY}]'))
         
     else:
         time.sleep(2)
