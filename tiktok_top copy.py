@@ -105,6 +105,28 @@ def open_product():
     df = pd.DataFrame(df)
     df.to_csv(f'{CATEGORY}.csv', mode='a', index=False, header=False)
 
+def open_product_v2():
+    list = driver.find_elements(by=AppiumBy.XPATH, value="//*[contains(@text,'sold')]")
+    print(list)
+    df = []
+    for i in list:
+        # time.sleep(2)
+        try:
+            i.click()
+            link = get_link()
+            print("found link : ", link)
+            df.append(link)
+            time.sleep(1)
+            driver.swipe(540, 590, 540, 1800, 400)
+            time.sleep(1)
+            driver.back()
+        except:
+            continue
+    time.sleep(2)
+    df = pd.DataFrame(df)
+    df.to_csv(f'{CATEGORY}.csv', mode='a', index=False, header=False)
+
+
 k = 0
 while k <= SCROLL_LOOP:
     print (f"Scrape the loop at {k}")
@@ -113,7 +135,8 @@ while k <= SCROLL_LOOP:
         open_product()
     except:
         pass
-    driver.swipe(startx, 1855, endx, 1000, 400)
+
+    driver.swipe(startx, 1855, endx, 900, 400)
 
     time.sleep(2)
     close = driver.find_elements(by=AppiumBy.XPATH, value="/hierarchy/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.widget.ImageView")

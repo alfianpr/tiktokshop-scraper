@@ -7,7 +7,7 @@ from appium.webdriver.common.touch_action import TouchAction
 import requests
 
 SCROLL_LOOP = 1
-CATEGORY = "Food"
+CATEGORY = "Sports & Outdoors"
 SESSION = 100
 CONNECTION = "J9AXGF00S840NWB"
 
@@ -26,7 +26,7 @@ driver = webdriver.Remote("http://127.0.0.1:4723/wd/hub", desired_caps)
 
 #time.sleep(3)
 driver.implicitly_wait(4)
-driver.find_element(by=AppiumBy.ID, value="com.ss.android.ugc.trill:id/azz").click()
+driver.find_element(by=AppiumBy.XPATH, value="/hierarchy/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/X.b6T/android.widget.TabHost/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout[2]/android.widget.TextView").click()
 #driver.find_element(by=AppiumBy.ID, value="com.ss.android.ugc.trill:id/azn").click()
 time.sleep(3)
 
@@ -40,26 +40,23 @@ starty = screenHeight*8/11
 endy = screenHeight/8
 
 actions = TouchAction(driver)
-driver.swipe(startx, 1855, endx, 445, 400)
+driver.swipe(startx, 1855, endx, 445)
+
+try:
+    driver.find_element(by=AppiumBy.XPATH, value="/hierarchy/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup[5]").click()
+except:
+    pass
 #actions.long_press(None,startx,screenHeight*8/9).move_to(None,endx,endy).release().perform()
 
 ### Looking for category
 isfind = driver.find_elements(by=AppiumBy.XPATH, value=f'//com.lynx.tasm.behavior.ui.view.UIView[@content-desc="{CATEGORY}"]')
-try:
-    time.sleep(2)
-    while len([l[0] for l in isfind if len(l) > 0]) == 0:
-        driver.swipe(954, 230, 369, 230, 400)
-        # try:
-        #     time.sleep(2)
-        #     driver.find_element(by.AppiumBy.XPATH, value="/hierarchy/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.widget.ImageView").click()
-        # except:
-        #     break
-        isfind.append(driver.find_elements(by=AppiumBy.XPATH, value=f'//com.lynx.tasm.behavior.ui.view.UIView[@content-desc="{CATEGORY}]'))
-        
-    else:
-        time.sleep(2)
-        [l[0] for l in isfind if len(l) > 0][0].click()
-except:
+while not isfind:
+    driver.swipe(954, 230, 369, 230)
+    try:
+        isfind.append(driver.find_element(by=AppiumBy.XPATH, value=f'//com.lynx.tasm.behavior.ui.view.UIView[@content-desc="{CATEGORY}"]'))
+    except:
+        pass
+else:
     isfind[0].click()
 
 def get_link():
@@ -110,7 +107,7 @@ while A <= SESSION:
             close[0].click()
         k = k + 1
     try:
-        driver.find_element(by=AppiumBy.ID, value="com.ss.android.ugc.trill:id/bzp").click()
+        driver.find_element(by=AppiumBy.XPATH, value="/hierarchy/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/X.b6T/android.widget.TabHost/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.RelativeLayout/android.widget.LinearLayout/android.widget.FrameLayout").click()
     except:
         pass
     time.sleep(3)
