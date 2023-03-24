@@ -5,7 +5,7 @@ import time
 from appium.webdriver.common.touch_action import TouchAction
 
 SCROLL_LOOP = 100
-CATEGORY = "Skintific"
+CATEGORY = "Whitelab"
 CONNECTION = "192.168.45.165:5555"
 LAYER = False
 
@@ -48,7 +48,7 @@ def open_product_v1():
         }
     for i, j in xy.items():
         try:
-            time.sleep(1)
+            #time.sleep(1)
             actions.tap(None,i,j,1)
             actions.perform()
             time.sleep(2)
@@ -57,7 +57,7 @@ def open_product_v1():
             df.append(link)
             time.sleep(1)
             driver.swipe(540, 590, 540, 1850, 400)
-            time.sleep(1)
+            # time.sleep(1)
         except:
             pass
         driver.back()
@@ -72,18 +72,19 @@ def open_product_v1():
 def open_product_v2():
     element = driver.find_elements(by=AppiumBy.XPATH, value="//*[contains(@text,'sold')]")
     teks = []
-    el = []
+#   el = []
 
-    for i in element:
-        try:
-            teks.append(i.text.replace("|", ""))
-        except:
-            pass
+    # for i in element:
+    #     try:
+    #         teks.append(i.text.replace("|", ""))
+    #     except:
+    #         pass
 
-    [el.append(x) for x in teks if x not in el]
+    # [el.append(x) for x in teks if x not in el]
+    el = element[1::2]
 
-    if k > 0:
-        del el[:1]
+    # if k > 0:
+    del el[:2]
 
     print("list :", el)
     df = []
@@ -93,16 +94,15 @@ def open_product_v2():
             driver.find_element(by=AppiumBy.XPATH, value="/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/com.lynx.tasm.behavior.ui.LynxFlattenUI[13]").click()
         except:
             pass
+        # try:
+        #     driver.find_element(by=AppiumBy.ACCESSIBILITY_ID, value="Shop").click()
+        # except:
+        #     pass
+        
+        # driver.find_element(by=AppiumBy.XPATH, value=f"//*[contains(@text,'{i}')]").click()
+        i.click()
         try:
-            driver.find_element(by=AppiumBy.ACCESSIBILITY_ID, value="Shop").click()
-        except:
-            pass
-        try:
-            driver.find_element(by=AppiumBy.XPATH, value=f"//*[contains(@text,'{i}')]").click()
-        except:
-            pass
-        try:
-            time.sleep(2)
+            #time.sleep(2)
             link = get_link()
             print("found link : ", link)
             df.append(link)
@@ -112,10 +112,10 @@ def open_product_v2():
         except:
             pass
         driver.back()
-        try:
-            driver.find_element(by=AppiumBy.ID, value="com.ss.android.ugc.trill:id/b93").click()
-        except:
-            pass
+        # try:
+        #     driver.find_element(by=AppiumBy.ID, value="com.ss.android.ugc.trill:id/b93").click()
+        # except:
+        #     pass
 
     #time.sleep(2)
     df = pd.DataFrame(df)
@@ -125,7 +125,7 @@ k = 0
 while k <= SCROLL_LOOP:
     print (f"Scrape the loop at {k}")
     time.sleep(1)
-    open_product_v1()
+    open_product_v2()
     driver.swipe(startx, 1900, endx, 850, 400)
     time.sleep(1)
     k = k + 1

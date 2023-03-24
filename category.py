@@ -9,12 +9,12 @@ import requests
 SCROLL_LOOP = 1
 CATEGORY = "Fashion Anak"
 SESSION = 100
-CONNECTION = "192.168.0.105:5555"
+CONNECTION = "192.168.18.252:5555"
 LAYER = True
 
 desired_caps = {
-    "appium:appPackage": "com.ss.android.ugc.trill",
-    "appium:appActivity": "com.ss.android.ugc.aweme.splash.SplashActivity",
+    # "appium:appPackage": "com.ss.android.ugc.trill",
+    # "appium:appActivity": "com.ss.android.ugc.aweme.splash.SplashActivity",
     "platformName": "Android",
     "deviceName": "device",
     "udid": CONNECTION,
@@ -26,8 +26,8 @@ desired_caps = {
 driver = webdriver.Remote("http://127.0.0.1:4723/wd/hub", desired_caps)
 
 #time.sleep(3)
-driver.implicitly_wait(4)
-driver.find_element(by=AppiumBy.XPATH, value="/hierarchy/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/X.JtW/android.widget.TabHost/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout[2]/android.widget.TextView").click()
+# driver.implicitly_wait(4)
+# driver.find_element(by=AppiumBy.XPATH, value="/hierarchy/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/X.JtW/android.widget.TabHost/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout[2]/android.widget.TextView").click()
 #driver.find_element(by=AppiumBy.ID, value="com.ss.android.ugc.trill:id/azn").click()
 time.sleep(3)
 
@@ -38,32 +38,32 @@ endx = deviceSize['width']*1/4
 starty = deviceSize['height']*8/11
 endy = deviceSize['height']/8
 
-if LAYER == True:
-    time.sleep(2)
-    layer = driver.find_element(by=AppiumBy.XPATH, value="/hierarchy/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup")
-    layer.click()
-    time.sleep(3)
-    driver.back()
+# if LAYER == True:
+#     time.sleep(2)
+#     layer = driver.find_element(by=AppiumBy.XPATH, value="/hierarchy/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup")
+#     layer.click()
+#     time.sleep(3)
+#     driver.back()
 
 actions = TouchAction(driver)
-driver.swipe(startx, 1855, endx, 445)
+# driver.swipe(startx, 1855, endx, 445)
 
-try:
-    driver.find_element(by=AppiumBy.XPATH, value="/hierarchy/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup[5]").click()
-except:
-    pass
+# try:
+#     driver.find_element(by=AppiumBy.XPATH, value="/hierarchy/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup[5]").click()
+# except:
+#     pass
 #actions.long_press(None,startx,screenHeight*8/9).move_to(None,endx,endy).release().perform()
 
 ### Looking for category
-isfind = driver.find_elements(by=AppiumBy.XPATH, value=f'//com.lynx.tasm.behavior.ui.view.UIView[@content-desc="{CATEGORY}"]')
-while not isfind:
-    driver.swipe(954, 230, 369, 230)
-    try:
-        isfind.append(driver.find_element(by=AppiumBy.XPATH, value=f'//com.lynx.tasm.behavior.ui.view.UIView[@content-desc="{CATEGORY}"]'))
-    except:
-        pass
-else:
-    isfind[0].click()
+# isfind = driver.find_elements(by=AppiumBy.XPATH, value=f'//com.lynx.tasm.behavior.ui.view.UIView[@content-desc="{CATEGORY}"]')
+# while not isfind:
+#     driver.swipe(954, 230, 369, 230)
+#     try:
+#         isfind.append(driver.find_element(by=AppiumBy.XPATH, value=f'//com.lynx.tasm.behavior.ui.view.UIView[@content-desc="{CATEGORY}"]'))
+#     except:
+#         pass
+# else:
+#     isfind[0].click()
 
 def get_link():
     #driver.implicitly_wait(4)
