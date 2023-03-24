@@ -3,11 +3,10 @@ from appium.webdriver.common.appiumby import AppiumBy
 import pandas as pd
 import time
 from appium.webdriver.common.touch_action import TouchAction
-import requests
 
 SCROLL_LOOP = 100
-CATEGORY = "Rumah Tangga"
-CONNECTION = "J9AXGF00S840NWB"
+CATEGORY = "Skintific"
+CONNECTION = "192.168.45.165:5555"
 LAYER = False
 
 desired_caps = {
@@ -32,16 +31,15 @@ startx = screenWidth*1/4
 endx = screenWidth*1/4
 starty = screenHeight*8/11
 endy = screenHeight/8
-
+# com.ss.android.ugc.trill:id/iea
 def get_link():
     #driver.implicitly_wait(4)
     time.sleep(2)
-    driver.find_element(by=AppiumBy.ID, value="com.ss.android.ugc.trill:id/h3b").click()
+    driver.find_element(by=AppiumBy.ID, value="com.ss.android.ugc.trill:id/hf0").click()
     #driver.implicitly_wait(4)
-    time.sleep(2)
+    time.sleep(1)
     driver.find_element(by=AppiumBy.XPATH, value="/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.FrameLayout/androidx.recyclerview.widget.RecyclerView/android.widget.LinearLayout[1]").click()
-    text = driver.get_clipboard_text()
-    return text
+    return driver.get_clipboard_text()
 
 def open_product_v1():
     df = []
@@ -58,11 +56,16 @@ def open_product_v1():
             print("found link : ", link)
             df.append(link)
             time.sleep(1)
-            driver.swipe(540, 590, 540, 1800, 400)
+            driver.swipe(540, 590, 540, 1850, 400)
             time.sleep(1)
-            driver.back()
         except:
-            continue
+            pass
+        driver.back()
+        try:
+            driver.find_element(by=AppiumBy.ID, value="com.ss.android.ugc.trill:id/b93").click()
+        except:
+            pass
+        
     df = pd.DataFrame(df)
     df.to_csv(f'{CATEGORY}.csv', mode='a', index=False, header=False)
 
@@ -121,8 +124,8 @@ def open_product_v2():
 k = 0
 while k <= SCROLL_LOOP:
     print (f"Scrape the loop at {k}")
-    time.sleep(2)
-    open_product_v2()
-    driver.swipe(startx, 1900, endx, 1000, 400)
-    time.sleep(2)
+    time.sleep(1)
+    open_product_v1()
+    driver.swipe(startx, 1900, endx, 850, 400)
+    time.sleep(1)
     k = k + 1

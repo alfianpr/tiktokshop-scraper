@@ -7,9 +7,10 @@ from appium.webdriver.common.touch_action import TouchAction
 import requests
 
 SCROLL_LOOP = 1
-CATEGORY = "Sports & Outdoors"
+CATEGORY = "Fashion Anak"
 SESSION = 100
-CONNECTION = "J9AXGF00S840NWB"
+CONNECTION = "192.168.0.105:5555"
+LAYER = True
 
 desired_caps = {
     "appium:appPackage": "com.ss.android.ugc.trill",
@@ -26,18 +27,23 @@ driver = webdriver.Remote("http://127.0.0.1:4723/wd/hub", desired_caps)
 
 #time.sleep(3)
 driver.implicitly_wait(4)
-driver.find_element(by=AppiumBy.XPATH, value="/hierarchy/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/X.b6T/android.widget.TabHost/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout[2]/android.widget.TextView").click()
+driver.find_element(by=AppiumBy.XPATH, value="/hierarchy/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/X.JtW/android.widget.TabHost/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout[2]/android.widget.TextView").click()
 #driver.find_element(by=AppiumBy.ID, value="com.ss.android.ugc.trill:id/azn").click()
 time.sleep(3)
 
 ### Scroll
 deviceSize = driver.get_window_size()
-screenWidth = deviceSize['width']
-screenHeight = deviceSize['height']
-startx = screenWidth*1/4
-endx = screenWidth*1/4
-starty = screenHeight*8/11
-endy = screenHeight/8
+startx = deviceSize['width']*1/4
+endx = deviceSize['width']*1/4
+starty = deviceSize['height']*8/11
+endy = deviceSize['height']/8
+
+if LAYER == True:
+    time.sleep(2)
+    layer = driver.find_element(by=AppiumBy.XPATH, value="/hierarchy/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup")
+    layer.click()
+    time.sleep(3)
+    driver.back()
 
 actions = TouchAction(driver)
 driver.swipe(startx, 1855, endx, 445)
@@ -87,7 +93,7 @@ def open_product():
         except:
             continue
     df = pd.DataFrame(df)
-    df.to_csv(f'{CATEGORY}.csv', mode='a', index=False, header=False)
+    df.to_csv(f'csv/{CATEGORY}.csv', mode='a', index=False, header=False)
 
 A = 0
 while A <= SESSION:
@@ -107,7 +113,7 @@ while A <= SESSION:
             close[0].click()
         k = k + 1
     try:
-        driver.find_element(by=AppiumBy.XPATH, value="/hierarchy/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/X.b6T/android.widget.TabHost/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.RelativeLayout/android.widget.LinearLayout/android.widget.FrameLayout").click()
+        driver.find_element(by=AppiumBy.XPATH, value="/hierarchy/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/X.blv/android.widget.TabHost/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.RelativeLayout/android.widget.LinearLayout/android.widget.FrameLayout").click()
     except:
         pass
     time.sleep(3)
