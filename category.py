@@ -9,7 +9,7 @@ import requests
 SCROLL_LOOP = 1
 CATEGORY = "Fashion Anak"
 SESSION = 100
-CONNECTION = "192.168.18.252:5555"
+CONNECTION = "192.168.45.165:39090"
 LAYER = True
 
 desired_caps = {
@@ -108,9 +108,6 @@ while A <= SESSION:
         driver.swipe(startx, 1855, endx, 445, 400)
 
         time.sleep(2)
-        close = driver.find_elements(by=AppiumBy.XPATH, value="/hierarchy/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.widget.ImageView")
-        if len(close) > 0:
-            close[0].click()
         k = k + 1
     try:
         driver.find_element(by=AppiumBy.XPATH, value="/hierarchy/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/X.blv/android.widget.TabHost/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.RelativeLayout/android.widget.LinearLayout/android.widget.FrameLayout").click()
@@ -120,4 +117,8 @@ while A <= SESSION:
     driver.swipe(500, 465, 500, 948, 400)
     # time.sleep(3)
     driver.swipe(startx, 1855, endx, 400, 400)
+    try:
+        driver.find_element(by=AppiumBy.ID, value="com.ss.android.ugc.trill:id/f54").click()
+    except:
+        pass
     A = A + 1

@@ -5,33 +5,24 @@ import time
 from appium.webdriver.common.touch_action import TouchAction
 
 SCROLL_LOOP = 100
-CATEGORY = "Whitelab"
-CONNECTION = "192.168.45.165:5555"
-LAYER = False
+CATEGORY = "Somethinc"
+CONNECTION = "192.168.45.165:39090"
+SKIP = True  # First time set to False, set True if you want to continue the process
 
 desired_caps = {
-    # "appium:appPackage": "com.ss.android.ugc.trill",
-    # "appium:appActivity": "com.ss.android.ugc.aweme.splash.SplashActivity",
     "platformName": "Android",
     "deviceName": "device",
     "udid": CONNECTION,
     "noReset": True,
-    # "unlockType": "pattern",
-    # "unlockValue": "751236"
 }
 
 driver = webdriver.Remote("http://127.0.0.1:4723/wd/hub", desired_caps)
-actions = TouchAction(driver)
 
-### Scroll
-deviceSize = driver.get_window_size()
-screenWidth = deviceSize['width']
-screenHeight = deviceSize['height']
-startx = screenWidth*1/4
-endx = screenWidth*1/4
-starty = screenHeight*8/11
-endy = screenHeight/8
-# com.ss.android.ugc.trill:id/iea
+### Scroll Default
+actions = TouchAction(driver)
+startx = driver.get_window_size()['width']*1/4; endx = driver.get_window_size()['width']*1/4
+starty = driver.get_window_size()['height']*8/11; endy = driver.get_window_size()['height']/8
+
 def get_link():
     #driver.implicitly_wait(4)
     time.sleep(2)
@@ -41,6 +32,7 @@ def get_link():
     driver.find_element(by=AppiumBy.XPATH, value="/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.FrameLayout/androidx.recyclerview.widget.RecyclerView/android.widget.LinearLayout[1]").click()
     return driver.get_clipboard_text()
 
+# Open Product by Coordinat
 def open_product_v1():
     df = []
     xy = {279 : 760, 864 : 760, 268 : 1962, 786 : 1962, 
@@ -48,7 +40,6 @@ def open_product_v1():
         }
     for i, j in xy.items():
         try:
-            #time.sleep(1)
             actions.tap(None,i,j,1)
             actions.perform()
             time.sleep(2)
@@ -57,67 +48,34 @@ def open_product_v1():
             df.append(link)
             time.sleep(1)
             driver.swipe(540, 590, 540, 1850, 400)
-            # time.sleep(1)
-        except:
-            pass
+        except: pass
         driver.back()
-        try:
-            driver.find_element(by=AppiumBy.ID, value="com.ss.android.ugc.trill:id/b93").click()
-        except:
-            pass
-        
+        try: driver.find_element(by=AppiumBy.ID, value="com.ss.android.ugc.trill:id/b93").click()
+        except: pass
     df = pd.DataFrame(df)
     df.to_csv(f'{CATEGORY}.csv', mode='a', index=False, header=False)
 
+# Open Product by "Sold Text"
 def open_product_v2():
     element = driver.find_elements(by=AppiumBy.XPATH, value="//*[contains(@text,'sold')]")
-    teks = []
-#   el = []
-
-    # for i in element:
-    #     try:
-    #         teks.append(i.text.replace("|", ""))
-    #     except:
-    #         pass
-
-    # [el.append(x) for x in teks if x not in el]
     el = element[1::2]
+    if k > 0 or SKIP == True: del el[:2]
+    loc = [i.location for i in el]
+    print("list :", loc)
 
-    # if k > 0:
-    del el[:2]
-
-    print("list :", el)
     df = []
-    for i in el:
+    for i in loc:
+        try: actions.tap(None, i["x"], i["y"]).perform()
+        except: pass
         try:
-            time.sleep(1)
-            driver.find_element(by=AppiumBy.XPATH, value="/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/com.lynx.tasm.behavior.ui.LynxFlattenUI[13]").click()
-        except:
-            pass
-        # try:
-        #     driver.find_element(by=AppiumBy.ACCESSIBILITY_ID, value="Shop").click()
-        # except:
-        #     pass
-        
-        # driver.find_element(by=AppiumBy.XPATH, value=f"//*[contains(@text,'{i}')]").click()
-        i.click()
-        try:
-            #time.sleep(2)
             link = get_link()
             print("found link : ", link)
             df.append(link)
             time.sleep(1)
             driver.swipe(540, 590, 540, 1850, 400)
             time.sleep(1)
-        except:
-            pass
+        except: pass
         driver.back()
-        # try:
-        #     driver.find_element(by=AppiumBy.ID, value="com.ss.android.ugc.trill:id/b93").click()
-        # except:
-        #     pass
-
-    #time.sleep(2)
     df = pd.DataFrame(df)
     df.to_csv(f'{CATEGORY}.csv', mode='a', index=False, header=False)
 
@@ -128,4 +86,6 @@ while k <= SCROLL_LOOP:
     open_product_v2()
     driver.swipe(startx, 1900, endx, 850, 400)
     time.sleep(1)
+    try: driver.find_element(by=AppiumBy.ID, value="com.ss.android.ugc.trill:id/f54").click()
+    except: pass
     k = k + 1
