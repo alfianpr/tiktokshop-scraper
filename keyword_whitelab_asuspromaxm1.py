@@ -35,7 +35,7 @@ k = 0
 while k <= SCROLL_LOOP:
     print (f"Scrape the loop at {k}")
     open_product_v1_search_asuspromaxm1(CATEGORY=CATEGORY)
-    driver.swipe(startx, 1900, endx, 850, 400)
+    driver.swipe(startx, 1900, endx, 850, 400) # Adjust with your device
     time.sleep(1)
     try: close_dialog()
     except: pass

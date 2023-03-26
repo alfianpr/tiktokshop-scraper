@@ -1,7 +1,7 @@
 import requests
 import pandas as pd
 
-CATEGORY = "Food"
+CATEGORY = "Kidsware"
 
 df = pd.read_csv(f"./csv/{CATEGORY}.csv", header=None)
 df = df[0]
