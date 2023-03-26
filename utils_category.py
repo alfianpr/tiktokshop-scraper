@@ -33,7 +33,7 @@ def get_link_cat_asuspromaxm1():
 def open_product_v1_cat_asuspromaxm1(CATEGORY):
     actions = TouchAction(driver)
     df = []
-    xy = {279 : 600, 864 : 600, 268 : 1362, 786 : 1362, # Click coordinat
+    xy = {279 : 600, 864 : 600, 268 : 1350, 786 : 1350, # Click coordinat
         #264 : 1855, 823 : 1855
         }
     for i, j in xy.items():
