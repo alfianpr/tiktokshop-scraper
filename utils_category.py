@@ -8,13 +8,17 @@ from appium.webdriver.common.touch_action import TouchAction
 SHARE_BUTTON = "com.ss.android.ugc.trill:id/hf0"
 COPY_BUTTON = "/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.FrameLayout/androidx.recyclerview.widget.RecyclerView/android.widget.LinearLayout[1]"
 CLOSE_DIALOG = "com.ss.android.ugc.trill:id/f54"
+UP_BUTTON = "com.ss.android.ugc.trill:id/c4f"
 
 def driver(SERVER_APPIUM_IP, SERVER_APPIUM_PORT, desired_caps):
         global driver
         driver = webdriver.Remote(f"http://{SERVER_APPIUM_IP}:{SERVER_APPIUM_PORT}/wd/hub", desired_caps)
         return driver
 
-def close_dialog(): driver.find_element(by=AppiumBy.ID, value=f"{CLOSE_DIALOG}").click() # close unnecesary dialogbox
+def up_button_asuspromaxm1(): TouchAction(driver).tap(None, 985, 1904).perform() # coordinat of up button
+
+def close_dialog(): 
+    return driver.find_element(by=AppiumBy.ID, value=f"{CLOSE_DIALOG}").click() # close unnecesary dialogbox
 
 def get_link_cat_asuspromaxm1():
     #driver.implicitly_wait(4)

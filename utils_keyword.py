@@ -14,7 +14,7 @@ def driver(SERVER_APPIUM_IP, SERVER_APPIUM_PORT, desired_caps):
         driver = webdriver.Remote(f"http://{SERVER_APPIUM_IP}:{SERVER_APPIUM_PORT}/wd/hub", desired_caps)
         return driver
 
-def close_dialog(): driver.find_element(by=AppiumBy.ID, value=f"{CLOSE_DIALOG}").click() # close unnecesary dialogbox
+def close_dialog(): return driver.find_element(by=AppiumBy.ID, value=f"{CLOSE_DIALOG}").click() # close unnecesary dialogbox
 
 def get_link_search_asuspromaxm1():
     #driver.implicitly_wait(4)

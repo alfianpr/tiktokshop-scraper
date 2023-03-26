@@ -6,7 +6,7 @@ from appium.webdriver.common.touch_action import TouchAction
 
 SCROLL_LOOP = 100
 CATEGORY = "Skintific"
-CONNECTION = "192.168.45.165:5555"
+CONNECTION = "192.168.0.100:38763"
 LAYER = False
 
 desired_caps = {
@@ -22,20 +22,5 @@ desired_caps = {
 
 driver = webdriver.Remote("http://127.0.0.1:4723/wd/hub", desired_caps)
 actions = TouchAction(driver)
-
-element = driver.find_elements(by=AppiumBy.XPATH, value="//*[contains(@text,'sold')]")
-teks = []
-el = []
-
-print(element)
-
-for i in element:
-    try:
-        teks.append(i.text.replace("|", ""))
-    except:
-        pass
-
-[el.append(x) for x in teks if x not in el]
-
-print (teks)
-print (el)
+time.sleep(2)
+actions.tap(None, 985, 1904).perform()
