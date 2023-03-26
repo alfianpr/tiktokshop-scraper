@@ -9,7 +9,7 @@ from utils_category import open_product_v1_cat_asuspromaxm1, driver, close_dialo
 SESSION = 100
 SCROLL_LOOP = 3
 CATEGORY = "Beauty"
-CONNECTION = "192.168.0.100:38763"
+CONNECTION = "192.168.0.100:5555"
 SERVER_APPIUM_PORT = "4723"
 SERVER_APPIUM_IP = "127.0.0.1"
 

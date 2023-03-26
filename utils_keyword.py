@@ -65,6 +65,7 @@ def open_product_v2_search_asuspromaxm1(SKIP, CATEGORY, k):
         try: close_dialog()
         except: pass
         try:
+            time.sleep(1)
             link = get_link_search_asuspromaxm1()
             print("found link : ", link)
             df.append(link)
