@@ -38,15 +38,13 @@ def open_product_v1_cat_asuspromaxm1(CATEGORY):
         }
     for i, j in xy.items():
         try: actions.tap(None,i,j).perform()
-        except: pass
+        except: continue
         try: close_dialog()
         except: pass
         try:
             link = get_link_cat_asuspromaxm1()
             print("found link : ", link)
             df.append(link)
-        except: pass
-        try:
             driver.back()
         except: pass
     df = pd.DataFrame(df)
