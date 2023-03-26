@@ -24,8 +24,7 @@ for i in range(1, number_lines, rowsize):
             long_final = long.split("?")
             url.append(long_final[0])
             print(long_final[0])
-        except:
-            pass
+        except: pass
 
     [result.append(x) for x in url if x not in result]
     df_result = pd.DataFrame(result)
