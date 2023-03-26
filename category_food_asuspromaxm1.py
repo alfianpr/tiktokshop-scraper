@@ -31,8 +31,7 @@ while A <= SESSION:
     k = 0
     while k <= SCROLL_LOOP:
         print (f"Scrape the loop at {k}")
-        try: open_product_v1_cat_asuspromaxm1(CATEGORY=CATEGORY)
-        except: pass
+        open_product_v1_cat_asuspromaxm1(CATEGORY=CATEGORY)
         driver.swipe(startx, 1855, endx, 445, 400) # Adjust with your device
         k = k + 1
     try: time.sleep(2); up_button_asuspromaxm1()
