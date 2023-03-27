@@ -4,12 +4,15 @@ import pandas as pd
 import time
 from appium.webdriver.common.touch_action import TouchAction
 
-# Setup Component
+# Setup Component for Asus Pro Max M1
 SHARE_BUTTON = "com.ss.android.ugc.trill:id/hf0"
 COPY_BUTTON = "/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.FrameLayout/androidx.recyclerview.widget.RecyclerView/android.widget.LinearLayout[1]"
 CLOSE_DIALOG = "com.ss.android.ugc.trill:id/f54"
 UP_BUTTON = "com.ss.android.ugc.trill:id/c4f"
 BACK_BUTTON = "com.ss.android.ugc.trill:id/a20"
+
+# Setup Coordinat
+
 
 def driver(SERVER_APPIUM_IP, SERVER_APPIUM_PORT, desired_caps):
         global driver
@@ -23,7 +26,7 @@ def close_dialog():
 
 def get_link_cat_asuspromaxm1():
     #driver.implicitly_wait(4)
-    time.sleep(1)
+    time.sleep(2)
     driver.find_element(by=AppiumBy.ID, value=f"{SHARE_BUTTON}").click()
     #driver.implicitly_wait(4)
     time.sleep(1)
@@ -48,7 +51,7 @@ def open_product_v1_cat_asuspromaxm1(CATEGORY):
             df.append(link)
             driver.back(); continue
         except: pass
-        try: driver.find_element(by=AppiumBy.ID, value=f"{BACK_BUTTON}").click()
+        try: driver.find_element(by=AppiumBy.ID, value=f"{BACK_BUTTON}").click(); print("back, wrong click!")
         except: pass
     df = pd.DataFrame(df)
     df.to_csv(f'./csv/{CATEGORY}.csv', mode='a', index=False, header=False)

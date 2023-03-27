@@ -10,6 +10,8 @@ COPY_BUTTON = "/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout
 CLOSE_DIALOG = "com.ss.android.ugc.trill:id/f54"
 CLOSE_END_LIVE = "com.ss.android.ugc.trill:id/auy"
 CLOSE_TOP_PRODUCT = "/hierarchy/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/com.lynx.tasm.behavior.ui.LynxFlattenUI[3]"
+BACK_BUTTON = "com.ss.android.ugc.trill:id/a20"
+CLOSE_LIVE = "com.ss.android.ugc.trill:id/auy"
 
 def driver(SERVER_APPIUM_IP, SERVER_APPIUM_PORT, desired_caps):
         global driver
@@ -48,16 +50,17 @@ def open_product_v1_search_asuspromaxm1(CATEGORY):
             driver.swipe(540, 590, 540, 1850, 400) # swipe live product video
             driver.back(); continue
         except: pass
+        try:
+            driver.find_element(by=AppiumBy.ID, value=f"{BACK_BUTTON}").click()
+        except: pass
         try: # Close end live
             time.sleep(1); driver.find_element(by=AppiumBy.ID, value=f"{CLOSE_END_LIVE}").click()
             print("cant share link 1")
-        except:
-            pass
+        except: pass
         try: # Close top prodct
             time.sleep(1); driver.find_element(by=AppiumBy.XPATH, value=f"{CLOSE_TOP_PRODUCT}").click()
             print("cant share link 2")
-        except:
-            pass
+        except: pass
     df = pd.DataFrame(df)
     df.to_csv(f'./csv/{CATEGORY}.csv', mode='a', index=False, header=False)
 
@@ -73,7 +76,7 @@ def open_product_v2_search_asuspromaxm1(SKIP, CATEGORY, k):
     df = []
     for i in loc:
         try: actions.tap(None, i["x"], i["y"]).perform()
-        except: pass
+        except: continue
         try: close_dialog()
         except: pass
         try:
@@ -81,12 +84,11 @@ def open_product_v2_search_asuspromaxm1(SKIP, CATEGORY, k):
             link = get_link_search_asuspromaxm1()
             print("found link : ", link)
             df.append(link)
-        except: pass
-        try:
-            time.sleep(1)
             driver.swipe(540, 590, 540, 1850, 400) # swipe live product video
             time.sleep(1)
-            driver.back()
+            driver.back(); continue
+        except: pass
+        try: time.sleep(2); driver.find_element(by=AppiumBy.ID, value=f"{CLOSE_LIVE}").click()
         except: pass
     df = pd.DataFrame(df)
     df.to_csv(f'./csv/{CATEGORY}.csv', mode='a', index=False, header=False)

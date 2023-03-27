@@ -1,10 +1,10 @@
-import time
 from utils_category import open_product_v1_cat_asuspromaxm1, driver, close_dialog, up_button_asuspromaxm1
+import time
 
 # Setup Connection and product
-SESSION = 100
+SESSION = 30
 SCROLL_LOOP = 6
-CATEGORY = "Food"
+CATEGORY = "Office"
 CONNECTION = "192.168.0.100:5555"
 SERVER_APPIUM_PORT = "4723"
 SERVER_APPIUM_IP = "127.0.0.1"
@@ -32,11 +32,8 @@ while A <= SESSION:
         k = k + 1
     try: time.sleep(2); up_button_asuspromaxm1()
     except: pass
-
-    time.sleep(2)
-    driver.swipe(500, 465, 500, 948, 400) # Adjust with your device
-    time.sleep(4)
-    driver.swipe(startx, 1855, endx, 445, 400) # Adjust with your device
+    time.sleep(2); driver.swipe(500, 465, 500, 948, 400) # Adjust with your device
+    time.sleep(4); driver.swipe(startx, 1855, endx, 445, 400) # Adjust with your device
     try: time.sleep(1); close_dialog()
     except: pass
     A = A + 1

@@ -1,13 +1,12 @@
 import requests
 import pandas as pd
+import os
 
-CATEGORY = "Skin care"
+CATEGORY = "Peralatan Ibadah"
 
 df = pd.read_csv(f"./csv/{CATEGORY}.csv", header=None)
 df = df[0]
-
 number_lines = sum(1 for row in df)
-
 rowsize = 10
 
 for i in range(1, number_lines, rowsize):
