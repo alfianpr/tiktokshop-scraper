@@ -37,10 +37,8 @@ def open_product_v1_search_asuspromaxm1(CATEGORY):
         #264 : 1855, 823 : 1855
         }
     for i, j in xy.items():
-        try: 
-            time.sleep(1); actions.tap(None,i,j).perform()
-        except: 
-            print("cant open the product"); continue
+        try: time.sleep(2); actions.tap(None,i,j).perform()
+        except: print("cant open the product"); continue
         try: close_dialog()
         except: pass
         try:
@@ -50,13 +48,12 @@ def open_product_v1_search_asuspromaxm1(CATEGORY):
             driver.swipe(540, 590, 540, 1850, 400) # swipe live product video
             driver.back(); continue
         except: pass
-        try:
-            driver.find_element(by=AppiumBy.ID, value=f"{BACK_BUTTON}").click()
+        try: driver.find_element(by=AppiumBy.ID, value=f"{BACK_BUTTON}").click()
         except: pass
         try: # Close end live
             time.sleep(1); driver.find_element(by=AppiumBy.ID, value=f"{CLOSE_END_LIVE}").click()
             print("cant share link 1")
-        except: pass
+        except: print ("can't close end live"); pass
         try: # Close top prodct
             time.sleep(1); driver.find_element(by=AppiumBy.XPATH, value=f"{CLOSE_TOP_PRODUCT}").click()
             print("cant share link 2")
@@ -65,11 +62,11 @@ def open_product_v1_search_asuspromaxm1(CATEGORY):
     df.to_csv(f'./csv/{CATEGORY}.csv', mode='a', index=False, header=False)
 
 # Open Product by "Sold Text"
-def open_product_v2_search_asuspromaxm1(SKIP, CATEGORY, k):
+def open_product_v2_search_asuspromaxm1(CATEGORY, SKIP, k):
     actions = TouchAction(driver)
     element = driver.find_elements(by=AppiumBy.XPATH, value="//*[contains(@text,'sold')]")
     el = element[1::2]
-    if k > 0 or SKIP == True: del el[:2]
+    if k > 0 or SKIP == True: del el[:1]
     loc = [i.location for i in el]
     print("list :", loc)
 
@@ -87,6 +84,10 @@ def open_product_v2_search_asuspromaxm1(SKIP, CATEGORY, k):
             driver.swipe(540, 590, 540, 1850, 400) # swipe live product video
             time.sleep(1)
             driver.back(); continue
+        except: pass
+        try: # Close end live
+            time.sleep(1); driver.find_element(by=AppiumBy.ID, value=f"{CLOSE_END_LIVE}").click()
+            print("cant share link 1")
         except: pass
         try: time.sleep(2); driver.find_element(by=AppiumBy.ID, value=f"{CLOSE_LIVE}").click()
         except: pass

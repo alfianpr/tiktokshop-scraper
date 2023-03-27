@@ -1,4 +1,5 @@
-from utils_category import open_product_v1_cat_asuspromaxm1, driver, close_dialog, up_button_asuspromaxm1
+from utils_category import open_product_v1_cat_asuspromaxm1, driver, close_dialog, up_button_asuspromaxm1, \
+     SCROLL_REFRESH_CAT_PAGE
 import time
 
 # Setup Connection and product
@@ -16,6 +17,7 @@ DESIRED_CAPS = {
     "noReset": True,
 }
 
+SC_1 = SCROLL_REFRESH_CAT_PAGE
 driver = driver(SERVER_APPIUM_IP=SERVER_APPIUM_IP, SERVER_APPIUM_PORT=SERVER_APPIUM_PORT, desired_caps=DESIRED_CAPS)
 
 ### Scroll
@@ -32,7 +34,7 @@ while A <= SESSION:
         k = k + 1
     try: time.sleep(2); up_button_asuspromaxm1()
     except: pass
-    time.sleep(2); driver.swipe(500, 465, 500, 948, 400) # Adjust with your device
+    time.sleep(2); driver.swipe(SC_1[0], SC_1[1], SC_1[2], SC_1[3], SC_1[4]) # Adjust with your device
     time.sleep(4); driver.swipe(startx, 1855, endx, 445, 400) # Adjust with your device
     try: time.sleep(1); close_dialog()
     except: pass

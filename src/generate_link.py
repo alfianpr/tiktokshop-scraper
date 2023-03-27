@@ -2,7 +2,7 @@ import requests
 import pandas as pd
 import os
 
-CATEGORY = "Peralatan Ibadah"
+CATEGORY = "Whitelab"
 
 df = pd.read_csv(f"./csv/{CATEGORY}.csv", header=None)
 df = df[0]

@@ -11,36 +11,41 @@ CLOSE_DIALOG = "com.ss.android.ugc.trill:id/f54"
 UP_BUTTON = "com.ss.android.ugc.trill:id/c4f"
 BACK_BUTTON = "com.ss.android.ugc.trill:id/a20"
 
-# Setup Coordinat
+"""
+Setup Coordinat for Asus Pro Max M1
+Structure (start_x, start_y, end_x, end_y, speed)
+"""
+SCROLL_REFRESH_CAT_PAGE = [500, 465, 500, 948, 400]
+SELECT_PRODUCT = {279 : 600, 864 : 600, 268 : 1350, 786 : 1350}
 
-
+# Setup the Appium driver
 def driver(SERVER_APPIUM_IP, SERVER_APPIUM_PORT, desired_caps):
         global driver
         driver = webdriver.Remote(f"http://{SERVER_APPIUM_IP}:{SERVER_APPIUM_PORT}/wd/hub", desired_caps)
         return driver
 
-def up_button_asuspromaxm1(): TouchAction(driver).tap(None, 985, 1904).perform() # coordinat of up button # Adjust with your device
+# coordinat of up button # Adjust with your device
+def up_button_asuspromaxm1(): 
+    TouchAction(driver).tap(None, 985, 1904).perform()
 
+# close unnecesary dialogbox
 def close_dialog(): 
-    return driver.find_element(by=AppiumBy.ID, value=f"{CLOSE_DIALOG}").click() # close unnecesary dialogbox
+    return driver.find_element(by=AppiumBy.ID, value=f"{CLOSE_DIALOG}").click() 
 
+# Click share link and copy
 def get_link_cat_asuspromaxm1():
-    #driver.implicitly_wait(4)
     time.sleep(2)
     driver.find_element(by=AppiumBy.ID, value=f"{SHARE_BUTTON}").click()
-    #driver.implicitly_wait(4)
     time.sleep(1)
     driver.find_element(by=AppiumBy.XPATH, value=f"{COPY_BUTTON}").click()
     return driver.get_clipboard_text()
 
-#Open Product by Coordinat
+# Open Product by Coordinat
 def open_product_v1_cat_asuspromaxm1(CATEGORY):
     actions = TouchAction(driver)
-    df = []
-    xy = {279 : 600, 864 : 600, 268 : 1350, 786 : 1350, # Click coordinat # Adjust with your device
-        #264 : 1855, 823 : 1855
-        }
-    for i, j in xy.items():
+    df = [] 
+    # Click coordinat
+    for i, j in SELECT_PRODUCT.items():
         try: actions.tap(None,i,j).perform()
         except: continue
         try: close_dialog()
