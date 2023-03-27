@@ -1,9 +1,13 @@
+from appium import webdriver
+from appium.webdriver.common.appiumby import AppiumBy
+import pandas as pd
 import time
+from appium.webdriver.common.touch_action import TouchAction
 from utils_keyword import open_product_v1_search_asuspromaxm1, open_product_v2_search_asuspromaxm1, driver, close_dialog
 
 # Setup Connection and product
 SCROLL_LOOP = 100
-CATEGORY = "Wardah"
+CATEGORY = "Whitelab"
 CONNECTION = "192.168.0.100:5555"
 SKIP = False  # First time set to False, set True if you want to continue the process
 SERVER_APPIUM_PORT = "4723"
