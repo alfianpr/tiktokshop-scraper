@@ -48,8 +48,8 @@ def open_product_v1_search_asuspromaxm1(CATEGORY):
             driver.swipe(540, 590, 540, 1850, 400) # swipe live product video
             driver.back(); continue
         except: pass
-        try: driver.find_element(by=AppiumBy.ID, value=f"{BACK_BUTTON}").click()
-        except: pass
+        # try: driver.find_element(by=AppiumBy.ID, value=f"{BACK_BUTTON}").click()
+        # except: pass
         try: # Close end live
             time.sleep(1); driver.find_element(by=AppiumBy.ID, value=f"{CLOSE_END_LIVE}").click()
             print("cant share link 1")
