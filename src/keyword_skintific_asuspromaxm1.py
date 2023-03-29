@@ -4,15 +4,10 @@ from utils_keyword import open_product_v1_search_asuspromaxm1, open_product_v2_s
 # Setup Connection and product
 SCROLL_LOOP = 100
 CATEGORY = "Skintific"
-CONNECTION = "192.168.0.100:5555"
+CONNECTION = "192.168.0.101:5555"
 SKIP = False  # First time set to False, set True if you want to continue the process
 SERVER_APPIUM_PORT = "4723"
 SERVER_APPIUM_IP = "127.0.0.1"
-
-# Setup Component
-SHARE_BUTTON = "com.ss.android.ugc.trill:id/hf0"
-COPY_BUTTON = "/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.FrameLayout/androidx.recyclerview.widget.RecyclerView/android.widget.LinearLayout[1]"
-CLOSE_DIALOG = "com.ss.android.ugc.trill:id/f54"
 
 DESIRED_CAPS = {
     "platformName": "Android",

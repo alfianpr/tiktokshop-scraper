@@ -47,7 +47,7 @@ def open_product_v1_search_asuspromaxm1(CATEGORY):
             df.append(link)
             driver.swipe(540, 590, 540, 1850, 400) # swipe live product video
             driver.back(); continue
-        except: pass
+        except: print("can't share link, trying back.."); pass
         try: driver.find_element(by=AppiumBy.ID, value=f"{BACK_BUTTON}").click()
         except: pass
         try: # Close end live

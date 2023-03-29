@@ -2,7 +2,7 @@ import requests
 import pandas as pd
 import os
 
-CATEGORY = "Somethinc"
+CATEGORY = "Peralatan Dapur"
 
 df = pd.read_csv(f"./url/{CATEGORY}.csv", header=None)
 df = df[0]

@@ -1,8 +1,4 @@
-from appium import webdriver
-from appium.webdriver.common.appiumby import AppiumBy
-import pandas as pd
 import time
-from appium.webdriver.common.touch_action import TouchAction
 from utils_keyword import open_product_v1_search_asuspromaxm1, open_product_v2_search_asuspromaxm1, driver, close_dialog
 
 # Setup Connection and product
@@ -12,11 +8,6 @@ CONNECTION = "192.168.0.100:5555"
 SKIP = True  # First time set to False, set True if you want to continue the process
 SERVER_APPIUM_PORT = "4723"
 SERVER_APPIUM_IP = "127.0.0.1"
-
-# Setup Component
-SHARE_BUTTON = "com.ss.android.ugc.trill:id/hf0"
-COPY_BUTTON = "/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.FrameLayout/androidx.recyclerview.widget.RecyclerView/android.widget.LinearLayout[1]"
-CLOSE_DIALOG = "com.ss.android.ugc.trill:id/f54"
 
 DESIRED_CAPS = {
     "platformName": "Android",
@@ -35,7 +26,7 @@ k = 0
 while k <= SCROLL_LOOP:
     print (f"Scrape the loop at {k}")
     time.sleep(2); open_product_v2_search_asuspromaxm1(SKIP, CATEGORY, k)
-    driver.swipe(startx, 1900, endx, 850, 400) # Adjust with your device
+    driver.swipe(500, 1900, 500, 850, 400) # Adjust with your device
     time.sleep(1)
     try: close_dialog()
     except: pass

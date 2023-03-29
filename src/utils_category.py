@@ -11,12 +11,14 @@ CLOSE_DIALOG = "com.ss.android.ugc.trill:id/f54"
 UP_BUTTON = "com.ss.android.ugc.trill:id/c4f"
 BACK_BUTTON = "com.ss.android.ugc.trill:id/a20"
 
+# Setup coordinat
 """
 Setup Coordinat for Asus Pro Max M1
 Structure (start_x, start_y, end_x, end_y, speed)
 """
 SCROLL_REFRESH_CAT_PAGE = [500, 465, 500, 948, 400]
 SELECT_PRODUCT = {279 : 600, 864 : 600, 268 : 1350, 786 : 1350}
+SCROLL_DOWN = [500, 1900, 500, 850, 400]
 
 # Setup the Appium driver
 def driver(SERVER_APPIUM_IP, SERVER_APPIUM_PORT, desired_caps):
