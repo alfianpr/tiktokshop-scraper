@@ -4,6 +4,9 @@ import pandas as pd
 import time
 from appium.webdriver.common.touch_action import TouchAction
 
+# Setup connection
+ASUSPROMAXM1 = "192.168.0.101:5555"
+
 # Setup Component for Asus Pro Max M1
 SHARE_BUTTON = "com.ss.android.ugc.trill:id/hf0"
 COPY_BUTTON = "/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.FrameLayout/androidx.recyclerview.widget.RecyclerView/android.widget.LinearLayout[1]"

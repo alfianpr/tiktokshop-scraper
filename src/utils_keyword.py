@@ -4,6 +4,9 @@ import pandas as pd
 import time
 from appium.webdriver.common.touch_action import TouchAction
 
+# Setup Connection
+ASUSPROMAXM1 = "192.168.0.101:5555"
+
 # Setup Component
 SHARE_BUTTON = "com.ss.android.ugc.trill:id/hf0"
 COPY_BUTTON = "/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.FrameLayout/androidx.recyclerview.widget.RecyclerView/android.widget.LinearLayout[1]"
@@ -13,6 +16,17 @@ CLOSE_TOP_PRODUCT = "/hierarchy/android.widget.FrameLayout/android.widget.FrameL
 BACK_BUTTON = "com.ss.android.ugc.trill:id/a20"
 CLOSE_LIVE = "com.ss.android.ugc.trill:id/auy"
 CLOSE_INSIDE_PRODUCT = "/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/com.lynx.tasm.behavior.ui.LynxFlattenUI[10]"
+
+# Setup coordinat
+"""
+Setup Coordinat for Asus Pro Max M1
+Structure (start_x, start_y, end_x, end_y, speed)
+"""
+SELECT_PRODUCT = {279 : 760, 864 : 760, 268 : 1962, 786 : 1962}
+SCROLL_DOWN = [500, 1900, 500, 850, 400]
+SWIPE_PRODUCT = [540, 590, 540, 1850, 400]
+
+SC_1 = SWIPE_PRODUCT
 
 def driver(SERVER_APPIUM_IP, SERVER_APPIUM_PORT, desired_caps):
         global driver
@@ -34,10 +48,7 @@ def get_link_search_asuspromaxm1():
 def open_product_v1_search_asuspromaxm1(CATEGORY):
     actions = TouchAction(driver)
     df = []
-    xy = {279 : 760, 864 : 760, 268 : 1962, 786 : 1962, # Click coordinat
-        #264 : 1855, 823 : 1855
-        }
-    for i, j in xy.items():
+    for i, j in SELECT_PRODUCT.items():
         try: time.sleep(2); actions.tap(None,i,j).perform()
         except: print("cant open the product"); continue
         try: close_dialog()
@@ -46,7 +57,7 @@ def open_product_v1_search_asuspromaxm1(CATEGORY):
             link = get_link_search_asuspromaxm1()
             print("found link : ", link)
             df.append(link)
-            driver.swipe(540, 590, 540, 1850, 400) # swipe live product video
+            driver.swipe(SC_1[0], SC_1[1], SC_1[2], SC_1[3], SC_1[4]) # swipe live product video
             driver.back(); continue
         except: pass
         # try: driver.find_element(by=AppiumBy.ID, value=f"{BACK_BUTTON}").click()
@@ -66,7 +77,6 @@ def open_product_v2_search_asuspromaxm1(CATEGORY, SKIP, k):
     if k > 0 or SKIP == True: del el[:2]
     loc = [i.location for i in el]
     print("list :", loc)
-
     df = []
     for i in loc:
         try: actions.tap(None, i["x"], i["y"]).perform()
@@ -78,9 +88,8 @@ def open_product_v2_search_asuspromaxm1(CATEGORY, SKIP, k):
             link = get_link_search_asuspromaxm1()
             print("found link : ", link)
             df.append(link)
-            driver.swipe(540, 590, 540, 1850, 400) # swipe live product video
-            time.sleep(1)
-            driver.back(); continue
+            driver.swipe(SC_1[0], SC_1[1], SC_1[2], SC_1[3], SC_1[4]) # swipe live product video
+            time.sleep(1); driver.back(); continue
         except: pass
         try: time.sleep(1); driver.find_element(by=AppiumBy.ID, value=f"{CLOSE_END_LIVE}").click(); continue
         except: pass
@@ -88,6 +97,5 @@ def open_product_v2_search_asuspromaxm1(CATEGORY, SKIP, k):
         except: pass
         try: driver.find_element(by=AppiumBy.XPATH, value=f"{CLOSE_INSIDE_PRODUCT}").click(); continue
         except: pass
-
     df = pd.DataFrame(df)
     df.to_csv(f'./url/{CATEGORY}.csv', mode='a', index=False, header=False)
