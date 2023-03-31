@@ -2,7 +2,7 @@ import requests
 import pandas as pd
 import os
 
-CATEGORY = "Elektronik"
+CATEGORY = "Kidswear    "
 
 df = pd.read_csv(f"./url/{CATEGORY}.csv", header=None)
 df = df[0]
@@ -13,7 +13,6 @@ for i in range(1, number_lines, rowsize):
     df_2 = pd.read_csv(f"./url/{CATEGORY}.csv", header=None, nrows = rowsize, skiprows = i)
     session = requests.Session()
     print ("Unshorted the link ...")
-
     result = []
     url = []
     for j in df_2[0]:
@@ -24,7 +23,6 @@ for i in range(1, number_lines, rowsize):
             url.append(long_final[0])
             print(long_final[0])
         except: pass
-
     [result.append(x) for x in url if x not in result]
     df_result = pd.DataFrame(result)
     df_result.to_csv(f"./url/{CATEGORY}_tmp.csv", mode='a', index=False, header=False)
@@ -34,7 +32,6 @@ print ("remove duplicate ...")
 url_2 = pd.read_csv(f"./url/{CATEGORY}_tmp.csv", header=None)
 url_2 = url_2[0].values.tolist()
 result_2 = []
-
 [result_2.append(x) for x in url_2 if x not in result_2]
 df_result_2 = pd.DataFrame(result_2)
 df_result_2.to_csv(f"./url/{CATEGORY}_clean.csv", mode='a', index=False, header=False)

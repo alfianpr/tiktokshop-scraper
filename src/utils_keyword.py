@@ -11,11 +11,12 @@ ASUSPROMAXM1 = "192.168.0.101:5555"
 SHARE_BUTTON = "com.ss.android.ugc.trill:id/hf0"
 COPY_BUTTON = "/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.FrameLayout/androidx.recyclerview.widget.RecyclerView/android.widget.LinearLayout[1]"
 CLOSE_DIALOG = "com.ss.android.ugc.trill:id/f54"
-CLOSE_END_LIVE = "com.ss.android.ugc.trill:id/auy"
+CLOSE_END_LIVE = "com.ss.android.ugc.trill:id/b_y"
 CLOSE_TOP_PRODUCT = "/hierarchy/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/com.lynx.tasm.behavior.ui.LynxFlattenUI[3]"
 BACK_BUTTON = "com.ss.android.ugc.trill:id/a20"
 CLOSE_LIVE = "com.ss.android.ugc.trill:id/auy"
 CLOSE_INSIDE_PRODUCT = "/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/com.lynx.tasm.behavior.ui.LynxFlattenUI[10]"
+CLOSE_COUNTRY_AVAIL ="com.ss.android.ugc.trill:id/aum"
 
 # Setup coordinat
 """
@@ -23,7 +24,7 @@ Setup Coordinat for Asus Pro Max M1
 Structure (start_x, start_y, end_x, end_y, speed)
 """
 SELECT_PRODUCT = {279 : 760, 864 : 760, 268 : 1962, 786 : 1962}
-SCROLL_DOWN = [500, 1900, 500, 850, 400]
+SCROLL_DOWN = [500, 1900, 500, 700, 400]
 SWIPE_PRODUCT = [540, 590, 540, 1850, 400]
 
 SC_1 = SWIPE_PRODUCT
@@ -66,6 +67,8 @@ def open_product_v1_search_asuspromaxm1(CATEGORY):
         except: print ("can't close end live"); pass
         try: time.sleep(1); driver.find_element(by=AppiumBy.XPATH, value=f"{CLOSE_TOP_PRODUCT}").click(); print("cant share link 2"); continue
         except: pass
+        # try: time.sleep(2); driver.find_element(by=AppiumBy.ID, value=f"CLOSE_COUNTRY_AVAIL").click; continue
+        # except: print("huft.. :("); pass
     df = pd.DataFrame(df)
     df.to_csv(f'./url/{CATEGORY}.csv', mode='a', index=False, header=False)
 

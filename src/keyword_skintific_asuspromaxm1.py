@@ -9,7 +9,7 @@ CONNECTION = ASUSPROMAXM1
 SKIP = False  # First time set to False, set True if you want to continue the process
 SERVER_APPIUM_PORT = "4723"
 SERVER_APPIUM_IP = "127.0.0.1"
-SCRAPE_METHOD = "ELEMENT"
+SCRAPE_METHOD = "COORDINAT"
 
 DESIRED_CAPS = {
     "platformName": "Android",
