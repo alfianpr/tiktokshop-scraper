@@ -5,16 +5,17 @@ import time
 from appium.webdriver.common.touch_action import TouchAction
 
 # Setup Connection
-ASUSPROMAXM1 = "192.168.0.101:5555"
+ASUSPROMAXM1 = "192.168.0.106:5555"
 
 # Setup Component
-SHARE_BUTTON = "com.ss.android.ugc.trill:id/hf0"
+SHARE_BUTTON_1 = "com.ss.android.ugc.trill:id/hog"
+SHARE_BUTTON_2 = "com.ss.android.ugc.trill:id/hoh"
 COPY_BUTTON = "/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.FrameLayout/androidx.recyclerview.widget.RecyclerView/android.widget.LinearLayout[1]"
 CLOSE_DIALOG = "com.ss.android.ugc.trill:id/f54"
-CLOSE_END_LIVE = "com.ss.android.ugc.trill:id/b_y"
+CLOSE_END_LIVE = "com.ss.android.ugc.trill:id/bb_"
 CLOSE_TOP_PRODUCT = "/hierarchy/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/com.lynx.tasm.behavior.ui.LynxFlattenUI[3]"
-BACK_BUTTON = "com.ss.android.ugc.trill:id/a20"
-CLOSE_LIVE = "com.ss.android.ugc.trill:id/auy"
+BACK_BUTTON = "com.ss.android.ugc.trill:id/a2f"
+CLOSE_LIVE = "com.ss.android.ugc.trill:id/aw2"
 CLOSE_INSIDE_PRODUCT = "/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/com.lynx.tasm.behavior.ui.LynxFlattenUI[10]"
 CLOSE_COUNTRY_AVAIL ="com.ss.android.ugc.trill:id/aum"
 
@@ -39,7 +40,10 @@ def close_dialog(): return driver.find_element(by=AppiumBy.ID, value=f"{CLOSE_DI
 def get_link_search_asuspromaxm1():
     #driver.implicitly_wait(4)
     time.sleep(1)
-    driver.find_element(by=AppiumBy.ID, value=f"{SHARE_BUTTON}").click()
+    try:
+        driver.find_element(by=AppiumBy.ID, value=f"{SHARE_BUTTON_1}").click()
+    except:
+        driver.find_element(by=AppiumBy.ID, value=f"{SHARE_BUTTON_2}").click()
     #driver.implicitly_wait(4)
     time.sleep(1)
     driver.find_element(by=AppiumBy.XPATH, value=f"{COPY_BUTTON}").click()
@@ -56,10 +60,10 @@ def open_product_v1_search_asuspromaxm1(CATEGORY):
         except: pass
         try:
             link = get_link_search_asuspromaxm1()
-            print("found link : ", link)
+            print("found link : ", link) 
             df.append(link)
             driver.swipe(SC_1[0], SC_1[1], SC_1[2], SC_1[3], SC_1[4]) # swipe live product video
-            driver.back(); continue
+            time.sleep(1); driver.back(); continue
         except: pass
         # try: driver.find_element(by=AppiumBy.ID, value=f"{BACK_BUTTON}").click()
         # except: pass

@@ -5,10 +5,10 @@ import time
 from appium.webdriver.common.touch_action import TouchAction
 
 # Setup connection
-ASUSPROMAXM1 = "192.168.0.101:5555"
+ASUSPROMAXM1 = "192.168.0.106:5555"
 
 # Setup Component for Asus Pro Max M1
-SHARE_BUTTON = "com.ss.android.ugc.trill:id/hf0"
+SHARE_BUTTON = "com.ss.android.ugc.trill:id/hoh"
 COPY_BUTTON = "/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.FrameLayout/androidx.recyclerview.widget.RecyclerView/android.widget.LinearLayout[1]"
 CLOSE_DIALOG = "com.ss.android.ugc.trill:id/f54"
 UP_BUTTON = "com.ss.android.ugc.trill:id/c4f"
