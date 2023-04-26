@@ -3,7 +3,7 @@ from utils_top import open_product_v1_cat_asuspromaxm1, driver, close_dialog, \
      ASUSPROMAXM1, SCROLL_DOWN
 
 # Setup Connection and product
-SCROLL_LOOP = 100
+SCROLL_LOOP = 6
 CATEGORY = "Smartphone"
 CONNECTION = ASUSPROMAXM1
 SKIP = False  # First time set to False, set True if you want to continue the process
