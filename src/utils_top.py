@@ -20,7 +20,7 @@ Setup Coordinat for Asus Pro Max M1
 Structure (start_x, start_y, end_x, end_y, speed)
 """
 SCROLL_REFRESH_CAT_PAGE = [500, 465, 500, 948, 400]
-SELECT_PRODUCT = {500 : 550, 500 : 875, 500 : 1222, 500 : 1560, 500 : 1900}
+SELECT_PRODUCT = {450 : 550, 500 : 875, 550 : 1222, 600 : 1560, 650 : 1900}
 SCROLL_DOWN = [500, 1900, 500, 400, 400]
 
 # Setup the Appium driver
