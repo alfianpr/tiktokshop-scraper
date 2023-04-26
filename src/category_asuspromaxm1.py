@@ -5,7 +5,7 @@ from utils_category import open_product_v1_cat_asuspromaxm1, driver, close_dialo
 # Setup Connection and product
 SESSION = 30
 SCROLL_LOOP = 6
-CATEGORY = "Beauty"
+CATEGORY = "Office"
 CONNECTION = ASUSPROMAXM1
 SERVER_APPIUM_PORT = "4723"
 SERVER_APPIUM_IP = "127.0.0.1"
