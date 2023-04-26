@@ -4,7 +4,7 @@ from utils_keyword import open_product_v1_search_asuspromaxm1, open_product_v2_s
 
 # Setup Connection and product
 SCROLL_LOOP = 100
-CATEGORY = "Whitelab"
+CATEGORY = "Smartphone"
 CONNECTION = ASUSPROMAXM1
 SKIP = False  # First time set to False, set True if you want to continue the process
 SERVER_APPIUM_PORT = "4723"

@@ -5,7 +5,7 @@ import time
 from appium.webdriver.common.touch_action import TouchAction
 
 # Setup Connection
-ASUSPROMAXM1 = "192.168.0.106:5555"
+ASUSPROMAXM1 = "192.168.1.42:5555"
 
 # Setup Component
 SHARE_BUTTON_1 = "com.ss.android.ugc.trill:id/hog"
