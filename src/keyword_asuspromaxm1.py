@@ -4,7 +4,6 @@ from utils_keyword import open_product_v1_search_asuspromaxm1, open_product_v2_s
 
 # Setup Connection and product
 SCROLL_LOOP = 100
-CATEGORY = "Avoskin"
 CATEGORY = "Smartphone"
 CONNECTION = ASUSPROMAXM1
 SKIP = False  # First time set to False, set True if you want to continue the process
