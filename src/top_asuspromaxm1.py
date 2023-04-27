@@ -4,7 +4,7 @@ from utils_top import open_product_v1_cat_asuspromaxm1, driver, close_dialog, \
 
 # Setup Connection and product
 SCROLL_LOOP = 6
-CATEGORY = "Smartphone"
+CATEGORY = "Avoskin"
 CONNECTION = ASUSPROMAXM1
 SKIP = False  # First time set to False, set True if you want to continue the process
 SERVER_APPIUM_PORT = "4723"
