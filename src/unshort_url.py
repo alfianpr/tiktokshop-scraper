@@ -1,8 +1,12 @@
 import requests
 import pandas as pd
-import os
+import argparse
 
-CATEGORY = "womenswear"
+parser = argparse.ArgumentParser(description="unshort tiktok URL")
+parser.add_argument("keyword", help="input the keyword")
+args = parser.parse_args()
+
+CATEGORY = args.keyword
 
 df = pd.read_csv(f"./url/{CATEGORY}.csv", header=None)
 df = df[0]

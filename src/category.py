@@ -1,11 +1,16 @@
 import time
+import argparse
 from utils_category import open_product_v1_cat_asuspromaxm1, driver, close_dialog, up_button_asuspromaxm1, \
      SCROLL_REFRESH_CAT_PAGE, SCROLL_DOWN, ASUSPROMAXM1
+
+parser = argparse.ArgumentParser(description="scrape tiktok URL")
+parser.add_argument("keyword", help="input the keyword")
+args = parser.parse_args()
 
 # Setup Connection and product
 SESSION = 100
 SCROLL_LOOP = 4
-CATEGORY = "kidswear"
+CATEGORY = args.keyword
 CONNECTION = ASUSPROMAXM1
 SERVER_APPIUM_PORT = "4723"
 SERVER_APPIUM_IP = "127.0.0.1"
