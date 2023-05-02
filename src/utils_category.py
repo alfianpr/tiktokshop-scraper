@@ -46,15 +46,16 @@ def get_link_cat_asuspromaxm1():
     return driver.get_clipboard_text()
 
 # Open Product by Coordinat
+
 def open_product_v1_cat_asuspromaxm1(CATEGORY):
     actions = TouchAction(driver)
     df = [] 
     # Click coordinat
     for i, j in SELECT_PRODUCT.items():
-        try: actions.tap(None,i,j).perform()
+        try: time.sleep(2); actions.tap(None,i,j).perform()
         except: continue
-        try: close_dialog()
-        except: pass
+        # try: close_dialog()
+        # except: pass
         try:
             link = get_link_cat_asuspromaxm1()
             print("found link : ", link)

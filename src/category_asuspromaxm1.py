@@ -3,9 +3,9 @@ from utils_category import open_product_v1_cat_asuspromaxm1, driver, close_dialo
      SCROLL_REFRESH_CAT_PAGE, SCROLL_DOWN, ASUSPROMAXM1
 
 # Setup Connection and product
-SESSION = 30
+SESSION = 100
 SCROLL_LOOP = 6
-CATEGORY = "Office"
+CATEGORY = "Kitchen"
 CONNECTION = ASUSPROMAXM1
 SERVER_APPIUM_PORT = "4723"
 SERVER_APPIUM_IP = "127.0.0.1"
@@ -27,9 +27,9 @@ while A <= SESSION:
     while k <= SCROLL_LOOP:
         print (f"Scrape the loop at {k}")
         open_product_v1_cat_asuspromaxm1(CATEGORY=CATEGORY)
-        driver.swipe(SC_2[0], SC_2[1], SC_2[2], SC_2[3], SC_2[4]) # Adjust with your device
+        driver.swipe(SC_2[0], SC_2[1], SC_2[2], SC_2[3]) # Adjust with your device
         k = k + 1
-    try: time.sleep(2); up_button_asuspromaxm1()
+    try: time.sleep(1); up_button_asuspromaxm1()
     except: pass
     time.sleep(2); driver.swipe(SC_1[0], SC_1[1], SC_1[2], SC_1[3], SC_1[4]) # scroll up
     time.sleep(4); driver.swipe(SC_2[0], SC_2[1], SC_2[2], SC_2[3], SC_2[4]) # Scroll down

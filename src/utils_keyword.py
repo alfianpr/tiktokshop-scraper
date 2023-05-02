@@ -24,7 +24,7 @@ Setup Coordinat for Asus Pro Max M1
 Structure (start_x, start_y, end_x, end_y, speed)
 """
 SELECT_PRODUCT = {279 : 760, 864 : 760, 268 : 1962, 786 : 1962}
-SCROLL_DOWN = [500, 1900, 500, 650, 400]
+SCROLL_DOWN = [500, 1900, 500, 600, 400]
 SWIPE_PRODUCT = [540, 590, 540, 1850, 400]
 
 SC_1 = SWIPE_PRODUCT
@@ -64,22 +64,19 @@ def open_product_v1_search_asuspromaxm1(CATEGORY):
             driver.swipe(SC_1[0], SC_1[1], SC_1[2], SC_1[3], SC_1[4]) # swipe live product video
             time.sleep(1); driver.back(); continue
         except: pass
-        # try: driver.find_element(by=AppiumBy.ID, value=f"{BACK_BUTTON}").click()
-        # except: pass
         try: time.sleep(1); driver.find_element(by=AppiumBy.ID, value=f"{CLOSE_END_LIVE}").click(); print("cant share link 1"); continue
         except: print ("can't close end live"); pass
         try: time.sleep(1); driver.find_element(by=AppiumBy.XPATH, value=f"{CLOSE_TOP_PRODUCT}").click(); print("cant share link 2"); continue
         except: pass
         try: 
+            """
+            for back to the page if open the keyword recomendation page
+            """
             if driver.find_element(by=AppiumBy.ID, value=KEYWORD_BOX).text != CATEGORY:
                 print("ups.. wrong click. back......")
                 driver.back(); continue
-        except: pass
-
-        # try: driver.find_element(by=AppiumBy.ID, value=f"{BACK_BUTTON}").click(); print("back, wrong click!")
-        # except: pass
-        # try: time.sleep(2); driver.find_element(by=AppiumBy.ID, value=f"CLOSE_COUNTRY_AVAIL").click; continue
-        # except: print("huft.. :("); pass
+            else: pass
+        except: driver.back()
     df = pd.DataFrame(df)
     df.to_csv(f'./url/{CATEGORY}.csv', mode='a', index=False, header=False)
 
