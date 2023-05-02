@@ -21,7 +21,7 @@ Structure (start_x, start_y, end_x, end_y, speed)
 """
 SCROLL_REFRESH_CAT_PAGE = [500, 465, 500, 948, 400]
 SELECT_PRODUCT = {279 : 600, 864 : 600, 268 : 1350, 786 : 1350}
-SCROLL_DOWN = [500, 1900, 500, 400, 400]
+SCROLL_DOWN = [500, 1900, 500, 100, 400]
 
 # Setup the Appium driver
 def driver(SERVER_APPIUM_IP, SERVER_APPIUM_PORT, desired_caps):
