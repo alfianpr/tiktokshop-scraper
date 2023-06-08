@@ -5,16 +5,16 @@ import time
 from appium.webdriver.common.touch_action import TouchAction
 
 # Setup Connection
-ASUSPROMAXM1 = "192.168.0.111:5555"
+ASUSPROMAXM1 = "192.168.0.106:5555"
 
 # Setup Component
-SHARE_BUTTON_1 = "com.ss.android.ugc.trill:id/hog"
-SHARE_BUTTON_2 = "com.ss.android.ugc.trill:id/hoh"
-COPY_BUTTON = "/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.FrameLayout/androidx.recyclerview.widget.RecyclerView/android.widget.LinearLayout[1]"
+SHARE_BUTTON_1 = "com.ss.android.ugc.trill:id/i3v"
+SHARE_BUTTON_2 = "com.ss.android.ugc.trill:id/i3u"
+COPY_BUTTON = "/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.FrameLayout/androidx.recyclerview.widget.RecyclerView/android.widget.LinearLayout[1]/android.widget.ImageView"
 CLOSE_DIALOG = "com.ss.android.ugc.trill:id/f54"
 CLOSE_END_LIVE = "com.ss.android.ugc.trill:id/bb_"
-CLOSE_TOP_PRODUCT = "/hierarchy/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/com.lynx.tasm.behavior.ui.LynxFlattenUI[3]"
-BACK_BUTTON = "com.ss.android.ugc.trill:id/a2f"
+CLOSE_TOP_PRODUCT = "/hierarchy/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/com.lynx.tasm.ui.image.FlattenUIImage[2]"
+BACK_BUTTON = "com.ss.android.ugc.trill:id/a43"
 CLOSE_LIVE = "com.ss.android.ugc.trill:id/aw2"
 KEYWORD_BOX = "com.ss.android.ugc.trill:id/c4v"
 
@@ -23,8 +23,8 @@ KEYWORD_BOX = "com.ss.android.ugc.trill:id/c4v"
 Setup Coordinat for Asus Pro Max M1
 Structure (start_x, start_y, end_x, end_y, speed)
 """
-SELECT_PRODUCT = {279 : 760, 864 : 760, 268 : 1962, 786 : 1962}
-SCROLL_DOWN = [500, 1900, 500, 600, 400]
+SELECT_PRODUCT = {210 : 805, 788 : 810, 211 : 1969, 791 : 1974}
+SCROLL_DOWN = [500, 1900, 500, 800, 400]
 SWIPE_PRODUCT = [540, 590, 540, 1850, 400]
 
 SC_1 = SWIPE_PRODUCT
@@ -53,7 +53,7 @@ def open_product_v1_search_asuspromaxm1(CATEGORY):
     actions = TouchAction(driver)
     df = []
     for i, j in SELECT_PRODUCT.items():
-        try: time.sleep(2); actions.tap(None,i,j).perform()
+        try: time.sleep(1); actions.tap(None,i,j).perform()
         except: print("cant open the product"); continue
         try: close_dialog()
         except: pass
