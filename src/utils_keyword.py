@@ -13,7 +13,7 @@ SHARE_BUTTON_2 = "com.ss.android.ugc.trill:id/i3u"
 COPY_BUTTON = "/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.FrameLayout/androidx.recyclerview.widget.RecyclerView/android.widget.LinearLayout[1]/android.widget.ImageView"
 CLOSE_DIALOG = "com.ss.android.ugc.trill:id/f54"
 CLOSE_END_LIVE = "com.ss.android.ugc.trill:id/bb_"
-CLOSE_TOP_PRODUCT = "/hierarchy/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/com.lynx.tasm.ui.image.FlattenUIImage[2]"
+CLOSE_TOP_PRODUCT = "/hierarchy/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/com.lynx.tasm.behavior.ui.LynxFlattenUI[3]"
 BACK_BUTTON = "com.ss.android.ugc.trill:id/a43"
 CLOSE_LIVE = "com.ss.android.ugc.trill:id/aw2"
 KEYWORD_BOX = "com.ss.android.ugc.trill:id/c4v"
@@ -62,10 +62,10 @@ def open_product_v1_search_asuspromaxm1(CATEGORY):
             print("found link : ", link) 
             df.append(link)
             driver.swipe(SC_1[0], SC_1[1], SC_1[2], SC_1[3], SC_1[4]) # swipe live product video
-            time.sleep(1); driver.back(); continue
+            time.sleep(1); driver.back(); continue  
         except: pass
-        try: time.sleep(1); driver.find_element(by=AppiumBy.ID, value=f"{CLOSE_END_LIVE}").click(); print("cant share link 1"); continue
-        except: print ("can't close end live"); pass
+        # try: time.sleep(1); driver.find_element(by=AppiumBy.ID, value=f"{CLOSE_END_LIVE}").click(); print("cant share link 1"); continue
+        # except: print ("can't close end live"); pass
         try: time.sleep(1); driver.find_element(by=AppiumBy.XPATH, value=f"{CLOSE_TOP_PRODUCT}").click(); print("cant share link 2"); continue
         except: pass
         try: 
@@ -76,7 +76,7 @@ def open_product_v1_search_asuspromaxm1(CATEGORY):
                 print("ups.. wrong click. back......")
                 driver.back(); continue
             else: pass
-        except: driver.back()
+        except: pass
     df = pd.DataFrame(df)
     df.to_csv(f'./url/{CATEGORY}.csv', mode='a', index=False, header=False)
 
