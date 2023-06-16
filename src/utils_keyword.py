@@ -30,9 +30,9 @@ SWIPE_PRODUCT = [540, 590, 540, 1850, 400]
 SC_1 = SWIPE_PRODUCT
 
 def driver(SERVER_APPIUM_IP, SERVER_APPIUM_PORT, desired_caps):
-        global driver
-        driver = webdriver.Remote(f"http://{SERVER_APPIUM_IP}:{SERVER_APPIUM_PORT}/wd/hub", desired_caps)
-        return driver
+    global driver
+    driver = webdriver.Remote(f"http://{SERVER_APPIUM_IP}:{SERVER_APPIUM_PORT}/wd/hub", desired_caps)
+    return driver
 
 def close_dialog(): return driver.find_element(by=AppiumBy.ID, value=f"{CLOSE_DIALOG}").click() # close unnecesary dialogbox
 
