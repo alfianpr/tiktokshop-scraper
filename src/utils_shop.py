@@ -101,7 +101,7 @@ for i in link_shop:
     try:
         driver.execute_script("mobile: deepLink", {'url': i, 'package': 'com.ss.android.ugc.trill'})
     except: continue
-    time.sleep(4)
+    time.sleep(2)
     try:
         driver.find_element(by=AppiumBy.XPATH, value=f"{SHOP_BUTTON}").click()
     except: continue
@@ -109,5 +109,10 @@ for i in link_shop:
     try:
         driver.find_element(by=AppiumBy.XPATH, value=f"{OPEN_SHOP}").click()
     except: continue
+    time.sleep(4)
+    try:
+        driver.find_element(by=AppiumBy.XPATH, value='//com.lynx.tasm.behavior.ui.text.FlattenUIText[@content-desc="Products"]').click()
+    except: continue
+    time.sleep(3)
     swipe()
-    
+    driver.close_app()
