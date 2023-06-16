@@ -84,6 +84,18 @@ def open_prod():
         except: pass
     df = pd.DataFrame(df)
     df.to_csv(f'./url/{CATEGORY}.csv', mode='a', index=False, header=False)
+def swipe():
+    k = 1
+    while k<=30:
+        print (f"Scrape the loop at {k}")
+        open_prod()
+        driver.swipe(SC_2[0], SC_2[1], SC_2[2], SC_2[3], SC_2[4]) # Adjust with your device
+        time.sleep(2)
+        k = k+1
+        try:
+            driver.find_element(by=AppiumBy.XPATH, value="//com.lynx.tasm.behavior.ui.view.UIView[@content-desc='No more products']").click()
+            break
+        except: pass
 
 for i in link_shop:
     try:
@@ -97,10 +109,5 @@ for i in link_shop:
     try:
         driver.find_element(by=AppiumBy.XPATH, value=f"{OPEN_SHOP}").click()
     except: continue
-    k = 0
-    while k<=5:
-        print (f"Scrape the loop at {k}")
-        open_prod()
-        driver.swipe(SC_2[0], SC_2[1], SC_2[2], SC_2[3], SC_2[4]) # Adjust with your device
-        time.sleep(2)
-        k = k+1
+    swipe()
+    
